@@ -1,0 +1,17 @@
+pipeline {
+  agent   agent {
+    docker { image 'node:16-alpine' }
+  }
+
+  stages {
+    stage('Hello') {
+      steps {
+        sh '''
+          ansible --version
+          ansible-playbook --version
+          ansible-galaxy --version
+        '''
+      }
+    }
+  }
+}
