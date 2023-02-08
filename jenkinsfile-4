@@ -1,4 +1,35 @@
 pipeline {
+  agent {
+    docker {
+      image 'node:12'
+    }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'npm install'
+        sh 'npm run build'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        docker.build("ansible", "ansible")
+        sh '''
+            ansible --version
+            ansible-playbook --version
+            ansible-galaxy --version
+            '''
+      }
+    }
+  }
+}
+
+
+
+
+
+
+pipeline {
   agent { dockerfile true }
   stages {
     stage('Test') {
@@ -12,6 +43,7 @@ pipeline {
     }
   }
 }
+
 
 
 
