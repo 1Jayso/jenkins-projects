@@ -9,7 +9,8 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         sh 'python3 --version'
-            sh 'pip3 list | grep ansible'
+        sh 'pip list | grep ansible'
+        sh 'docker --version'
             
       }
     }

@@ -16,6 +16,6 @@ apt update
 chmod a+r /etc/apt/keyrings/docker.gpg
 apt update
 apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-pip3 install ansible 
+apt install python3-pip -y && pip3 install --upgrade pip
+pip install ansible 
 apt install openssh-server openssh-client -y && apt install sshpass -y 
