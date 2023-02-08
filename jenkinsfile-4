@@ -1,5 +1,9 @@
 pipeline {
-  agent { dockerfile true }
+  agent {
+    docker {
+      image 'docker:23.0.0-cli-alpine3.17'
+    }
+  }
   stages {
     stage('Build') {
       steps {
