@@ -9,7 +9,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
             sh '''
-                pip list | grep ansible
+                pip3 list | grep ansible
                 '''
       }
     }
