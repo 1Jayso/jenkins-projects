@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-     docker {
-            image 'ubuntu'
-        }
-  }
+  agent { dockerfile true }
   stages {
     // stage('Docker Version') {
     //   steps {
