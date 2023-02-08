@@ -14,7 +14,7 @@ RUN apt-get update \
   && pip3 install --upgrade pip && \
   && pip3 install ansible && \
   && apt install openssh-server openssh-client -y && \
-  && apt install sshpass -y && 
+  && apt install sshpass -y 
 #   && usermod -aG docker ${USER}
 
 # ENV PATH=$PATH:/usr/bin/docker
