@@ -2,7 +2,7 @@
 set -e
 
 
-apt-get install \
+apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
