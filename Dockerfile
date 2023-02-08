@@ -5,6 +5,7 @@ USER root
 WORKDIR /opt
 COPY . .
 RUN chmod +x docker.sh && \
+  ./docker.sh && \
   pip3 install ansible && \
   apt install openssh-server openssh-client -y && \
   apt install sshpass -y 
