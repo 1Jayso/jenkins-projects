@@ -9,7 +9,6 @@ pipeline {
     stage('Build Docker Image') {
       steps {
             sh '''
-                docker build -t ansible ./ansible
                 ansible --version
                 ansible-playbook --version
                 ansible-galaxy --version
