@@ -4,9 +4,10 @@ RUN apt update && apt install vim -y
 USER root
 WORKDIR /app
 
-COPY . .
-RUN chmod +x /app/docker.sh; \
-  ./docker.sh
+COPY . /app/
+ADD docker.sh /app/
+RUN chmod +x /app/docker.sh && bash /app/docker.sh
+
 
  
 #   && usermod -aG docker ${USER}
