@@ -5,9 +5,9 @@ pipeline {
     }
   }
   stages {
-    stage('Build') {
+    stage('Docker Version') {
       steps {
-        sh 'npm install'
+        sh 'docker --version'
       }
     }
     stage('Build Docker Image') {
