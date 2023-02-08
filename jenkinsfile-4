@@ -13,12 +13,14 @@ pipeline {
     }
     stage('Build Docker Image') {
       steps {
-        docker.build("ansible", "ansible")
-        sh '''
-            ansible --version
-            ansible-playbook --version
-            ansible-galaxy --version
-            '''
+         script {
+          docker.build("ansible", "ansible")
+        }
+            sh '''
+                ansible --version
+                ansible-playbook --version
+                ansible-galaxy --version
+                '''
       }
     }
   }
