@@ -1,21 +1,20 @@
 pipeline {
   agent {
-    docker {
-      image 'docker:23.0.0-cli-alpine3.17'
-    }
+     docker {
+            image 'jenkins-agent'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
   }
   stages {
-    stage('Docker Version') {
-      steps {
-        sh 'docker --version'
-      }
-    }
+    // stage('Docker Version') {
+    //   steps {
+    //     sh 'docker --version'
+    //   }
+    // }
     stage('Build Docker Image') {
       steps {
-         script {
-          docker.build("ansible", "ansible")
-        }
             sh '''
+                docker build -t ansible ./ansible
                 ansible --version
                 ansible-playbook --version
                 ansible-galaxy --version
