@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu
 
 
 # USER root
@@ -14,4 +14,4 @@ RUN apt-get update \
 
 # ENV PATH=$PATH:/usr/bin/docker
 
-CMD ["docker", "--version"]
+# CMD ["systemctl, start", "--version"]
