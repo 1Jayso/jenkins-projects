@@ -1,7 +1,6 @@
 FROM ubuntu
 
-RUN apt-get update \
-  && apt-get install -y docker
+RUN pull 23.0.0-cli-alpine3.17
 #   && usermod -aG docker ${USER}
 
 ENV PATH=$PATH:/usr/bin/docker
