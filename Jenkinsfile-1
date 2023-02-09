@@ -9,7 +9,7 @@ pipeline {
     stage('Install Maria DB') {
       steps {
         sh 'ansible-galaxy collection install -r requirements.yml'
-        sh 'ansible-playbook -i ./inventory/inventory.txt --extra-vars "ansible_ssh_user=root --private-key=$ANSIBLE_PRIVATE_KEY ansible-playbooks/mariadb.yml -vvv'
+        sh 'ansible-playbook -i ./inventory/inventory.txt --extra-vars ansible_ssh_user=root --private-key=$ANSIBLE_PRIVATE_KEY ansible-playbooks/mariadb.yml -vvv'
       }
     }
   }
