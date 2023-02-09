@@ -23,10 +23,10 @@
       yum_repository:
         name: MariaDB
         description: MariaDB
-        baseurl: http://yum.mariadb.org/10.6.2/centos$releasever-amd64
+        baseurl: https://rpm.mariadb.org/10.6/rhel/$releasever/$basearch
         enabled: yes
         gpgcheck: yes
-        gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+        gpgkey: https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
     - name: Install MariaDB server
       yum:
         name:
