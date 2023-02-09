@@ -19,6 +19,13 @@
         permanent: yes
         state: enabled
         immediate: yes
+
+    - name: Build and start container on test env
+      shell: |
+        yum clean all
+        yum makecache
+      any_errors_fatal: true
+
     - name: MariaDB yum repository
       yum_repository:
         name: MariaDB
@@ -27,6 +34,7 @@
         enabled: yes
         gpgcheck: yes
         gpgkey: https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+    
     - name: Install MariaDB server
       yum:
         name:
