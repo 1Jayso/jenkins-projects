@@ -1,11 +1,15 @@
 pipeline {
-  agent {
-    docker { image 'node:16-alpine' }
+  agent{
+    docker { image 'docker-ansible:latest' }
+  } 
+  environment {
+   ANSIBLE_PRIVATE_KEY=credentials('ansible-private-key') 
   }
   stages {
-    stage('Test') {
+    stage('Install Maria DB') {
       steps {
-        sh 'node --version'
+        sh 'ansible-galaxy collection install -r requirements.yml'
+        sh 'ansible-playbook -i inventory/mariadb.hosts --private-key=$ANSIBLE_PRIVATE_KEY playbooks/mariadb.yml'
       }
     }
   }
