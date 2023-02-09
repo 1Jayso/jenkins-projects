@@ -11,23 +11,28 @@ env:
   DOCKER_TAG: latest
 
 jobs:
-  build-and-push:
+ build-and-push:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Build and Push Docker Image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        platforms: linux/amd64
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_NAME }}/${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
-      env:
-        DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
-        DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
-        DOCKER_TAG: ${{ env.DOCKER_TAG }}
-        DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_NAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASS }}
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_NAME }}
+          password: ${{ secrets.DOCKER_HUB_PASS }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags:  ${{ secrets.DOCKER_HUB_NAME }}/${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
