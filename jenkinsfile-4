@@ -11,6 +11,11 @@ pipeline {
         sh 'python3 --version'
         sh 'pip list | grep ansible'
         sh 'docker --version'
+        sh '''
+            ansible --version
+            ansible-playbook --version
+            ansible-galaxy --version
+         '''
             
       }
     }
