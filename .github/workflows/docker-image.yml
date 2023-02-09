@@ -1,0 +1,32 @@
+name: Push Docker Image
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_IMAGE: docker-ansible
+  DOCKER_TAG: latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
+      env:
+        DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
+        DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+        DOCKER_TAG: ${{ env.DOCKER_TAG }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
