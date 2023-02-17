@@ -28,8 +28,9 @@
   tasks:
     - name: Download jar file from Nexus
       get_url:
-        url: "https://abb8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com%2Fgenkey%2Ffoodmgt%2F0.0.1-RELEASE%2Ffoodmgt-0.0.1-RELEASE.jar"
+        url: "https://abb8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/foodmgt/0.0.1-RELEASE/foodmgt-0.0.1-RELEASE.jar"
         dest: "/opt/0.0.1-RELEASE.jar"
+        validate_certs: no
         headers:
           "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
           "X-Requested-By": "Jenkins"
