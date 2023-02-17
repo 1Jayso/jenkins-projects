@@ -18,4 +18,5 @@ apt update
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 apt install python3-pip -y && pip3 install --upgrade pip
 pip install ansible 
+ansible-galaxy collection install -r requirements.yml
 apt install openssh-server openssh-client -y && apt install sshpass -y 

@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Install Maria DB') {
       steps {
-        sh 'ansible-galaxy collection install -r requirements.yml'
+        // sh 'ansible-galaxy collection install -r requirements.yml'
         sh 'ansible-playbook -i ./inventory/inventory.txt --private-key=$ANSIBLE_PRIVATE_KEY ansible-playbooks/nexus.yml'
       }
     }

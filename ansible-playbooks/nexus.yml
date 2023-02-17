@@ -11,11 +11,32 @@
     nexus_password: "Ab#1234!"
     destination_path: "/opt/"
   tasks:
-  - name: Move release artifact to destination path
-    file:
-      src: "{{ nexus_repository_url }}/{{ nexus_repository_name }}/{{ artifact_name }}/{{ artifact_version }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
-      dest: "{{ destination_path }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
-      mode: '0755'
-      owner: root
-      remote_src: true
-    when: nexus_response.status == 201
+    - name: Move release artifact to destination path
+      file:
+        src: "{{ nexus_repository_url }}/{{ nexus_repository_name }}/{{ artifact_name }}/{{ artifact_version }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
+        dest: "{{ destination_path }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
+        mode: '0755'
+        owner: root
+        remote_src: true
+      when: nexus_response.status == 201
+
+
+---
+- name: Download jar file from Nexus and copy to another server
+  hosts: mariadb
+  become: yes
+  tasks:
+    - name: Download jar file from Nexus
+      get_url:
+        url: "https://abb8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com%2Fgenkey%2Ffoodmgt%2F0.0.1-RELEASE%2Ffoodmgt-0.0.1-RELEASE.jar"
+        dest: "/opt/0.0.1-RELEASE.jar"
+        headers:
+          "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+          "X-Requested-By": "Jenkins"
+      register: download_result
+
+    # - name: Copy jar file to destination server
+      # copy:
+      #   src: "/tmp/myapp-1.0.0.jar"
+      #   dest: "/path/on/destination_server/myapp-1.0.0.jar"
+      # when: download_result is succeeded
