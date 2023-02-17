@@ -1,0 +1,21 @@
+- name: Upload release artifact to Nexus
+  hosts: mariadb
+  become: yes
+  vars:
+    artifact_version: "0.0.1-RELEASE"
+    artifact_name: "	foodmgt"
+    artifact_extension: "jar"
+    nexus_repository_url: "https://7930-80-246-199-17.eu.ngrok.io/repository"
+    nexus_repository_name: "maven-releases"
+    nexus_username: "admin"
+    nexus_password: "Ab#1234!"
+    destination_path: "/opt/"
+  tasks:
+  - name: Move release artifact to destination path
+    file:
+      src: "{{ nexus_repository_url }}/{{ nexus_repository_name }}/{{ artifact_name }}/{{ artifact_version }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
+      dest: "{{ destination_path }}/{{ artifact_name }}-{{ artifact_version }}.{{ artifact_extension }}"
+      mode: '0755'
+      owner: root
+      remote_src: true
+    when: nexus_response.status == 201
