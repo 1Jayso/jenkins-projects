@@ -10,7 +10,7 @@ pipeline {
     stage('Install Maria DB') {
       steps {
         // sh 'ansible-galaxy collection install -r requirements.yml'
-        sh 'ansible-playbook --private-key=$ANSIBLE_PRIVATE_KEY ansible-playbooks/main.yml  --extra-vars "target=test" -vvv'
+        sh 'ansible-playbook --private-key=$ANSIBLE_PRIVATE_KEY ansible-playbooks/main.yml  --extra-vars "target=test" '
       
       }
     }
