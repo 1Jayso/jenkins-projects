@@ -9,10 +9,9 @@
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-  async: 800
+  async: 1200
   poll: 0
   register: download_result_1
-  async_timeout: 1200
   
 
 - name: Download spire-rest from Nexus
@@ -25,10 +24,9 @@
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-  async: 800
+  async: 1200
   poll: 0
   register: download_result_2
-  async_timeout: 1200
   
 
 - name: Download spire-web file from Nexus
@@ -41,10 +39,9 @@
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-  async: 800
+  async: 1200
   poll: 0
   register: download_result_3
-  async_timeout: 1200
   
 
 
