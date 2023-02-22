@@ -1,0 +1,18 @@
+---
+# main
+- name: Prerequisite
+  # Use the public IP if the VM is already created
+  hosts: "{{target}}"
+  strategy: free
+  user: root
+  become: true
+  gather_facts: false
+
+
+  pre_tasks:
+    - name: 'wait 2 seconds for target connection to become reachable/usable.'
+      wait_for_connection:
+        timeout: 2
+
+  roles:
+   - nexus

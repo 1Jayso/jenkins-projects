@@ -18,3 +18,5 @@ if response.status_code == 200:
         f.write(response.content)
 else:
     print('Error downloading file:', response.text)
+/tmp/installer_files  -------  all warfiles/jars  
+/data/ genkey_internal files.
