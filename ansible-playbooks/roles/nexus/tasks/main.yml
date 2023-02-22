@@ -3,23 +3,19 @@
       war_files: 
         - genkey-2.1.1.war
         - genkey-2.1.1.jar
+      auth_header: "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
         
 
 - name: Download war files 
-  async: 3600 
-  poll: 5 
-  with_items: "{{ war_files }}" 
-  command: curl -O -H "Authorization: Basic YWRtaW46U3VkbzEyMzQ1Njc4" https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/{{ item }}.war 
-  register: async_download 
-- name: Wait for downloads to complete 
-  async_status: 
-    jid: "{{ item.ansible_job_id }}" 
-  register: async_result 
-  until: async_result.finished 
-  retries: 30 
-  delay: 10 
-- name: Proceed with subsequent stages 
-  debug: msg="All war files have been downloaded." 
+  uri:
+      url: "https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/{{ item }}.war"
+      method: GET
+      headers:
+        Authorization: "{{ auth_header }}"
+      dest: "{{ item }}.war"
+      return_content: yes
+  with_items: "{{ war_files }}"
+  register: async_download
 
 
 
