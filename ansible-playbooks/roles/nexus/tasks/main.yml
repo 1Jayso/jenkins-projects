@@ -1,22 +1,20 @@
-- name: Download jar and war filse from Nexus
-  vars: 
-      war_files: 
-        - genkey-2.1.1.war
-        - genkey-2.1.1.jar
-      auth_header: "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
-        
+- name: Download jar and war files from Nexus
+  vars:
+    war_files:
+      - genkey-2.1.1.war
+      - genkey-2.1.1.jar
+    auth_header: "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
 
-- name: Download war files 
+- name: Download war files
   uri:
-      url: "https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/{{ item }}.war"
-      method: GET
-      headers:
-        Authorization: "{{ auth_header }}"
-      dest: "{{ item }}.war"
-      return_content: yes
+    url: "https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/{{ item }}"
+    method: GET
+    headers:
+      Authorization: "{{ auth_header }}"
+    dest: "{{ item }}"
+    return_content: yes
   with_items: "{{ war_files }}"
   register: async_download
-
 
 
 
