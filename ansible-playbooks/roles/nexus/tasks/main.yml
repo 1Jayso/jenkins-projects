@@ -11,6 +11,7 @@
       Authorization: "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
     dest: "{{ item }}"
     return_content: yes
+    validate_certs: no
   with_items: "{{ war_files }}"
   register: async_download
 
