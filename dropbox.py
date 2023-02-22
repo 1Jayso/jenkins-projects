@@ -1,22 +1,32 @@
+import aiohttp
+import asyncio
 
-import requests
+async def download_file(session, url, headers, dest):
+    async with session.get(url, headers=headers) as resp:
+        with open(dest, 'wb') as f:
+            while True:
+                chunk = await resp.content.read(1024)
+                if not chunk:
+                    break
+                f.write(chunk)
 
-import json
+async def main():
+    urls = [
+        'https://nexus.example.com/repository/maven-releases/com/example/app/1.0.0/app-1.0.0.jar',
+        'https://nexus.example.com/repository/maven-releases/com/example/lib/1.0.0/lib-1.0.0.jar',
+        'https://nexus.example.com/repository/maven-releases/com/example/config/1.0.0/config-1.0.0.json'
+    ]
+    headers = {
+        'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ='  # replace with your own credentials
+    }
+    tasks = []
+    async with aiohttp.ClientSession() as session:
+        for url in urls:
+            filename = url.split('/')[-1]
+            task = asyncio.ensure_future(download_file(session, url, headers, filename))
+            tasks.append(task)
+        await asyncio.gather(*tasks)
 
-path = "/RELEASES/MISC/adjudication-gateway-nhif-3.2.3-20210730.113452-39.jar"
-json_string = json.dumps({"path": path})
-
-url = 'https://content.dropboxapi.com/2/files/download'
-headers = {
-    'Authorization': 'Bearer sl.BY-fRMx7A07OCovNIk60wMtBlPzmZrn5M3LJjUeyXXGNiY7vqT8L2AbHyygR3KOf7lAtExrbBsAg51MePH_jEyNAuzLeZX54pR28X4a9fBHDnoKHJuT0z8Z5kHfCUsodQCRPb4B0',
-    'Dropbox-API-Arg': json_string
-}
-response = requests.post(url, headers=headers)
-
-if response.status_code == 200:
-    with open('/home/jenkins-projects', 'wb') as f:
-        f.write(response.content)
-else:
-    print('Error downloading file:', response.text)
-/tmp/installer_files  -------  all warfiles/jars  
-/data/ genkey_internal files.
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
