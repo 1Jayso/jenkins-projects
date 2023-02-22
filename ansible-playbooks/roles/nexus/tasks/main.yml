@@ -9,7 +9,7 @@
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
   register: download_result
-  async: 60
+  async: 3600
   poll: 0
 
 - name: Download spire-rest from Nexus
@@ -23,11 +23,11 @@
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
   register: download_result
-  async: 60
+  async: 3600
   poll: 0
 
 - name: Download spire-web file from Nexus
-  async: 60
+  async: 3600
   poll: 0
   remote_user: root
   become: true
@@ -51,6 +51,10 @@
   delay: 10
   with_items:
     - "{{ ansible_play_batch }}"
+
+- name: Print download results
+    debug:
+      var: download_result
 
 
 - name: Extract archive file
