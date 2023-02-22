@@ -5,13 +5,15 @@
   get_url:
     url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
     dest: "/tmp/installation_files/artifacts/jar-tool.jar"
+    async: 800
+    poll: 0
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-  register: download_result
-  async: 600
-  poll: 0
+  register: download_result_1
+  async_timeout: 1200
+  
 
 - name: Download spire-rest from Nexus
   remote_user: root
@@ -19,43 +21,55 @@
   get_url:
     url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
     dest: "/tmp/installation_files/artifacts/web.war"
+    async: 800
+    poll: 0
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-  register: download_result
-  async: 600
-  poll: 0
+  register: download_result_2
+  async_timeout: 1200
+  
 
 - name: Download spire-web file from Nexus
-  async: 600
-  poll: 0
   remote_user: root
   become: true
   get_url:
     url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
     dest: "/tmp/installation_files/artifacts/rest.war"
+    async: 800
+    poll: 0
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
   register: download_result_3
+  async_timeout: 1200
   
 
 
-# - name: Wait for all downloads to complete
-#   async_status:
-#     jid: "{{ download_result.ansible_job_id  }}"
-#   register: download_status
-#   until: download_status.finished
-#   retries: 60
-#   delay: 10
-#   with_items:
-#     - "{{ ansible_play_batch }}"
+- name: Wait for all downloads to complete
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: download_status
+  until: download_status.finished
+  loop:
+    - "{{ download_result_1 }}"
+    - "{{ download_result_2 }}"
+    - "{{ download_result_3 }}"
 
-# - name: Print download results
-#     debug:
-#       var: download_result
+
+
+- name: Read file from custom directory within role
+  shell: cat {{ role_path }}/config_files/combine.sh
+  vars:
+    src: config_files/combine.sh
+
+
+- name: Debug role path
+  debug:
+    var: role_path
+
 
 
 - name: Extract archive file
