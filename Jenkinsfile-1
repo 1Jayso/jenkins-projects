@@ -11,7 +11,7 @@ pipeline {
       steps {
         // sh 'ansible-galaxy collection install -r requirements.yml'
         // --private-key=$ANSIBLE_PRIVATE_KEY  
-        sh 'ansible-playbook ansible-playbooks/main.yml --extra-vars "target=test" '
+        sh 'ansible-playbook -i ansible-playbooks/inventory.txt  ansible-playbooks/main.yml --extra-vars "target=test" '
       
       }
     }
