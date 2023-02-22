@@ -1,0 +1,52 @@
+- name: Download jar file from Nexus
+  remote_user: root
+  become: true
+  get_url:
+    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+    dest: "/tmp/installation_files/artifacts/jar-tool.war"
+    validate_certs: no
+    headers:
+      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+      "X-Requested-By": "Jenkins"
+  register: download_result
+
+- name: Download spire-rest from Nexus
+  remote_user: root
+  become: true
+  get_url:
+    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+    dest: "/tmp/installation_files/artifacts/spire_web.war"
+    validate_certs: no
+    headers:
+      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+      "X-Requested-By": "Jenkins"
+  register: download_result
+
+- name: Download spire-web file from Nexus
+  remote_user: root
+  become: true
+  get_url:
+    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/foodmgt/0.0.1-RELEASE/foodmgt-0.0.1-RELEASE.jar"
+    dest: "/tmp/installation_files/artifacts/spire_web.war"
+    validate_certs: no
+    headers:
+      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+      "X-Requested-By": "Jenkins"
+  register: download_result
+  
+- name: Extract archive file
+  remote_user: root
+  become: true
+  unarchive:
+    src: ./*.zip
+    dest: /tmp/installation_files
+    copy: yes
+    extra_opts: [--strip-components=1]
+
+- name: merge Genkey Internal files
+  remote_user: root
+  become: true
+  shell: |
+    chmod +x combine.sh
+    ./combine.sh
+  any_errors_fatal: true
