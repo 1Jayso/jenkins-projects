@@ -3,7 +3,7 @@
 - name: Download jar file from Nexus
   get_url:
     url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
-    dest: "/tmp/installation_files/spire_web.war"
+    dest: "/tmp/installation_files/artifacts/jar-tool.war"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
@@ -13,7 +13,7 @@
 - name: Download spire-rest from Nexus
   get_url:
     url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-    dest: "/tmp/installation_files/spire_web.war"
+    dest: "/tmp/installation_files/artifacts/spire_web.war"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
@@ -23,7 +23,7 @@
 - name: Download spire-web file from Nexus
   get_url:
     url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/foodmgt/0.0.1-RELEASE/foodmgt-0.0.1-RELEASE.jar"
-    dest: "/tmp/installation_files/spire_web.war"
+    dest: "/tmp/installation_files/artifacts/spire_web.war"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
