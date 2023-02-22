@@ -3,7 +3,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+    url: " https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
     dest: "/tmp/installation_files/artifacts/jar-tool.jar"
     validate_certs: no
     headers:
@@ -18,7 +18,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+    url: " https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
     dest: "/tmp/installation_files/artifacts/web.war"
     validate_certs: no
     headers:
@@ -33,7 +33,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+    url: " https://5e9c-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
     dest: "/tmp/installation_files/artifacts/rest.war"
     validate_certs: no
     headers:
