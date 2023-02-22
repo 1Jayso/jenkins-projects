@@ -2,7 +2,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+    url: " https://ab8a-80-246-199-17.eu.ngrok.io//repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
     dest: "/tmp/installation_files/artifacts/jar-tool.war"
     validate_certs: no
     headers:
@@ -14,7 +14,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+    url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
     dest: "/tmp/installation_files/artifacts/spire_web.war"
     validate_certs: no
     headers:
@@ -26,7 +26,7 @@
   remote_user: root
   become: true
   get_url:
-    url: " https://0c91-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/foodmgt/0.0.1-RELEASE/foodmgt-0.0.1-RELEASE.jar"
+    url: " https://ab8a-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/foodmgt/0.0.1-RELEASE/foodmgt-0.0.1-RELEASE.jar"
     dest: "/tmp/installation_files/artifacts/spire_web.war"
     validate_certs: no
     headers:
