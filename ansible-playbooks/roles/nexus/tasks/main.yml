@@ -41,15 +41,15 @@
   poll: 0
 
 
-- name: Wait for all downloads to complete
-  async_status:
-    jid: "{{ item.ansible_job_id }}"
-  register: download_status
-  until: download_status.finished
-  retries: 60
-  delay: 10
-  with_items:
-    - "{{ ansible_play_batch }}"
+# - name: Wait for all downloads to complete
+#   async_status:
+#     jid: "{{ item.ansible_job_id }}"
+#   register: download_status
+#   until: download_status.finished
+#   retries: 60
+#   delay: 10
+#   with_items:
+#     - "{{ ansible_play_batch }}"
 
 
 - name: Extract archive file
