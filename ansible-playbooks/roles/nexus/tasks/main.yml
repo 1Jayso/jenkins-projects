@@ -67,7 +67,7 @@
   become: true
   shell: |
     chmod +x /tmp/installation_files/combine_config.sh
-    ./tmp/installation_files/combine_config.sh
+    ./tmp/installation_files/combine_config.sh SI
   any_errors_fatal: true
 
 
