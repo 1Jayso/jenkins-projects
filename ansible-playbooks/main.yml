@@ -7,6 +7,10 @@
   user: root
   become: true
   gather_facts: false
+  vars:
+  # - ansible_python_interpreter: /usr/bin/python
+  - ansible_host_key_checking: false
+  # - ansible_stdout_callback: yaml
 
 
   pre_tasks:
