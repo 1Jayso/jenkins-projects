@@ -47,10 +47,10 @@
   become: true
   shell: |
     cd /tmp/installation_files/config_files
-    unzip gk-*.zip
-    unzip si-*.zip
-    chmod +x combine_config.sh
-    ./combine_config.sh SI
+    unzip -q -o gk-*.zip
+    unzip -q -o si-*.zip
+    chmod +x combine.sh
+    ./combine.sh SI
   any_errors_fatal: true
 
 
