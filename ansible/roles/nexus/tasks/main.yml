@@ -1,24 +1,24 @@
-# - name: Download artifacts from Nexus
-#   vars:
-#     download_urls:
-#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
-#       dest: "/tmp/installation_files/artifacts/web.war"
-#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-#       dest: "/tmp/installation_files/artifacts/rest.war"
-#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
-#       dest: "/tmp/installation_files/artifacts/jar-tool.jar"
-#   get_url:
-#     url: "{{ item.url }}"
-#     dest: "{{ item.dest }}"
-#     validate_certs: no
-#     headers:
-#       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
-#       "X-Requested-By": "Jenkins"
-#   loop: "{{ download_urls }}"
-#   async: 3600
-#   poll: 5
-#   when: inventory_hostname in groups['test']
-#   register: download_results
+- name: Download artifacts from Nexus
+  vars:
+    download_urls:
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+      dest: "/tmp/installation_files/artifacts/web.war"
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+      dest: "/tmp/installation_files/artifacts/rest.war"
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+      dest: "/tmp/installation_files/artifacts/jar-tool.jar"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    validate_certs: no
+    headers:
+      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+      "X-Requested-By": "Jenkins"
+  loop: "{{ download_urls }}"
+  async: 3600
+  poll: 5
+  when: inventory_hostname in groups['test']
+  register: download_results
 
 
 - name: Copy Gk base and extension to remote path
@@ -28,20 +28,7 @@
     dest: /tmp/installation_files
   any_errors_fatal: true
 
-
-# - name: Unzip the files
-#   remote_user: root
-#   become: true
-#   unarchive:
-#     src: "{{ item }}"
-#     dest: "/tmp/installation_files/config_files"
-#     copy: no
-#   with_items:
-#     - /tmp/installation_files/config_files/gk-*.zip
-#     - /tmp/installation_files/config_files/si-*.zip
- 
    
-
 - name: Merge GK base and extension
   remote_user: root
   become: true
