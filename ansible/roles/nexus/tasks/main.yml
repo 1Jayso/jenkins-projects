@@ -23,7 +23,7 @@
 
 - name: Copy Gk base and extension to remote path
   become: true
-  Copy:
+  copy:
     src: config_files
     dest: /tmp/installation_files
   any_errors_fatal: true
