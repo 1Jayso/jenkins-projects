@@ -29,7 +29,7 @@
   any_errors_fatal: true
 
    
-- name: Merge GK base and extension
+- name: Merge GK base and extension and cleanup
   remote_user: root
   become: true
   shell: |
@@ -38,6 +38,7 @@
     unzip -q -o si-*.zip
     chmod +x combine.sh
     ./combine.sh SI
+    rm -rf *.zip gk-* si-*
   any_errors_fatal: true
 
 
