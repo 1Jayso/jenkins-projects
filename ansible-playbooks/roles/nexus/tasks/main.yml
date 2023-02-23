@@ -23,8 +23,8 @@
 - name: Wait for all downloads to complete
   async_status:
     jid: "{{ item.ansible_job_id }}"
-  register: download_status
-  until: download_status.finished
+  register: download_results
+  until: download_results.finished
   loop: "{{ download_results.results }}"
 
 
