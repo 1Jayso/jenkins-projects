@@ -22,8 +22,6 @@
 #   forks: 3
 
 - name: Download artifacts from Nexus
-  hosts: test
-  gather_facts: false
   vars:
     download_urls:
       - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
