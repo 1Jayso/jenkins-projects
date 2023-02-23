@@ -14,12 +14,25 @@
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
-    parallelism: 3
-  loop: "{{ download_urls }}"
+  loop: "{{ chunk }}"
+  when: inventory_hostname in groups['test']
+  register: download_results_chunk
+
+- name: Merge download results
+  set_fact:
+    download_results: "{{ download_results|default([]) + download_results_chunk.results }}"
+  vars:
+    chunk_size: 2
+    chunks: "{{ download_urls|batch(chunk_size) }}"
+  run_once: true
+  run_once_when: "'test' in group_names"
   async: 3600
   poll: 5
-  when: inventory_hostname in groups['test']
-  register: download_results
+
+- name: Fail task if any downloads failed
+  fail:
+    msg: "One or more downloads failed"
+  when: download_results|failed
 
 
 # - name: Wait for all downloads to complete
@@ -33,9 +46,9 @@
 
 
 - name: Read file from custom directory within role
-  shell: cat {{ role_path }}/config_files/combine.sh
+  shell: cat {{ role_path }}/files/config_files/combine.sh
   vars:
-    src: config_files/combine.sh
+    src: files/config_files/combine.sh
 
 
 - name: Debug role path
@@ -48,7 +61,7 @@
   remote_user: root
   become: true
   unarchive:
-    src: config_files
+    src: files/config_files
     dest: /tmp/installation_files
     copy: yes
     extra_opts: [--strip-components=1]
