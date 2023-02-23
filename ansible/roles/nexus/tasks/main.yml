@@ -46,7 +46,6 @@
   remote_user: root
   become: true
   shell: |
-
     cd /tmp/installation_files/config_files
     unzip gk-*.zip
     unzip si-*.zip
