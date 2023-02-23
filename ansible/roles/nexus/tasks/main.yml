@@ -29,15 +29,29 @@
   any_errors_fatal: true
 
 
-- name: Unzip and Merge GK base and extension
+- name: Unzip the file
+  remote_user: root
+  become: true
+  unarchive:
+  src: /tmp/installation_files/config_files
+  dest: /tmp/installation_files/config_files
+  remote_src: yes
+  copy: no
+  extra_opts:
+    - "-q"
+    - "-o"
+    - "-d /tmp/installation_files/config_files"
+
+- name: Merge GK base and extension
   remote_user: root
   become: true
   shell: |
     cd /tmp/installation_files/config_files
-    unzip *.zip
     chmod +x combine_config.sh
     ./combine_config.sh SI
   any_errors_fatal: true
+
+
 
 # - name: Wait for all downloads to complete
 #   async_status:
