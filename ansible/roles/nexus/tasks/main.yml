@@ -39,9 +39,7 @@
   with_items:
     - /tmp/installation_files/config_files/gk-*
     - /tmp/installation_files/config_files/si-*
-  extra_opts:
-    - "-q"
-    - "-o"
+ 
    
 
 - name: Merge GK base and extension
