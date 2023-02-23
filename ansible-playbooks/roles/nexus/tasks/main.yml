@@ -1,59 +1,46 @@
 
-- name: Download jar file from Nexus
+- name: Download artifacts from Nexus
   remote_user: root
   become: true
-  get_url:
-    url: " https://923d-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
-    dest: "/tmp/installation_files/artifacts/jar-tool.jar"
-    validate_certs: no
-    headers:
-      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
-      "X-Requested-By": "Jenkins"
+  vars:
+    download_urls:
+      - url: "https://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+        dest: "/tmp/installation_files/artifacts/web.war"
+      - url: "ttps://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+        dest: "/tmp/installation_files/artifacts/rest.war"
+      - url: "https://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+        dest: "/tmp/installation_files/artifacts/jar-tool.jar"
   async: 3600
   poll: 5
-  register: download_result_1
-  
+  register: download_results
 
-- name: Download spire-rest from Nexus
-  remote_user: root
-  become: true
-  get_url:
-    url: " https://923d-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-    dest: "/tmp/installation_files/artifacts/web.war"
-    validate_certs: no
-    headers:
-      "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
-      "X-Requested-By": "Jenkins"
-  async: 3600
-  poll: 5
-  register: download_result_2
-  
 
 - name: Download spire-web file from Nexus
-  remote_user: root
-  become: true
   get_url:
-    url: " https://923d-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-    dest: "/tmp/installation_files/artifacts/rest.war"
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
+  loop: "{{ download_urls }}"
   async: 3600
   poll: 5
-  register: download_result_3
-  
+  when: inventory_hostname in groups['test']
+  register: download_results
 
 
-- name: Wait for all downloads to complete
-  async_status:
-    jid: "{{ item.ansible_job_id }}"
-  register: download_status
-  until: download_status.finished
-  loop:
-    - "{{ download_result_1 }}"
-    - "{{ download_result_2 }}"
-    - "{{ download_result_3 }}"
+
+
+# - name: Wait for all downloads to complete
+#   async_status:
+#     jid: "{{ item.ansible_job_id }}"
+#   register: download_status
+#   until: download_status.finished
+#   loop:
+#     - "{{ download_result_1 }}"
+#     - "{{ download_result_2 }}"
+#     - "{{ download_result_3 }}"
 
     
 
