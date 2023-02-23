@@ -19,7 +19,6 @@
   poll: 5
   when: inventory_hostname in groups['test']
   register: download_results
-forks: 3
 
 
 
