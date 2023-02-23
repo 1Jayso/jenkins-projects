@@ -42,7 +42,6 @@
       loop: "{{ download_urls }}"
       when: inventory_hostname in groups['test']
       register: download_results
-  forks: 3
 
 
 # - name: Wait for all downloads to complete
