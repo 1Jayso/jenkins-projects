@@ -23,13 +23,9 @@
 
 - name: Copy Gk base and extension to remote path
   become: true
-  ansible.posix.synchronize:
+  Copy:
     src: config_files
     dest: /tmp/installation_files
-    recursive: yes
-    checksum: yes
-    rsync_opts:
-      - "--chmod=ugo+rwX"
   any_errors_fatal: true
 
 
