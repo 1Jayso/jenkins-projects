@@ -20,6 +20,7 @@
   when: inventory_hostname in groups['test']
   register: download_results
 
+
 # - name: Wait for all downloads to complete
 #   async_status:
 #     jid: "{{ item.ansible_job_id }}"
