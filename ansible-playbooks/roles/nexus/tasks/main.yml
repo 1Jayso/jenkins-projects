@@ -1,41 +1,50 @@
+# - name: Download artifacts from Nexus
+#   vars:
+#     download_urls:
+#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+#       dest: "/tmp/installation_files/artifacts/web.war"
+#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+#       dest: "/tmp/installation_files/artifacts/rest.war"
+#     - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+#       dest: "/tmp/installation_files/artifacts/jar-tool.jar"
+#   get_url:
+#     url: "{{ item.url }}"
+#     dest: "{{ item.dest }}"
+#     validate_certs: no
+#     headers:
+#       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+#       "X-Requested-By": "Jenkins"
+#   loop: "{{ download_urls }}"
+#   async: 3600
+#   poll: 5
+#   when: inventory_hostname in groups['test']
+#   register: download_results
+#   forks: 3
+
 - name: Download artifacts from Nexus
-  block:
-    - vars:
-        download_urls:
-        - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
-          dest: "/tmp/installation_files/artifacts/web.war"
-        - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-          dest: "/tmp/installation_files/artifacts/rest.war"
-        - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
-          dest: "/tmp/installation_files/artifacts/jar-tool.jar"
+  hosts: test
+  gather_facts: false
+  vars:
+    download_urls:
+      - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+        dest: "/tmp/installation_files/artifacts/web.war"
+      - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+        dest: "/tmp/installation_files/artifacts/rest.war"
+      - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+        dest: "/tmp/installation_files/artifacts/jar-tool.jar"
   tasks:
-    - name: Download artifacts in parallel
-      block:
-        - name: Download chunk of URLs
-          get_url:
-            url: "{{ item.url }}"
-            dest: "{{ item.dest }}"
-            validate_certs: no
-            headers:
-              "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
-              "X-Requested-By": "Jenkins"
-          loop: "{{ chunk }}"
-          when: inventory_hostname in groups['test']
-          register: download_results_chunk
-        - name: Merge download results
-          set_fact:
-            download_results: "{{ download_results|default([]) + download_results_chunk.results }}"
-      vars:
-        chunk_size: 2
-        chunks: "{{ download_urls|batch(chunk_size) }}"
-      run_once: true
-      run_once_when: "'test' in group_names"
-      async: 3600
-      poll: 5
-    - name: Fail task if any downloads failed
-      fail:
-        msg: "One or more downloads failed"
-      when: download_results|failed
+    - name: Download artifact
+      get_url:
+        url: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+        validate_certs: no
+        headers:
+          "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
+          "X-Requested-By": "Jenkins"
+      loop: "{{ download_urls }}"
+      when: inventory_hostname in groups['test']
+      register: download_results
+  forks: 3
 
 
 # - name: Wait for all downloads to complete
