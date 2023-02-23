@@ -1,11 +1,11 @@
 - name: Download artifacts from Nexus
   vars:
     download_urls:
-    - url: "https://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
       dest: "/tmp/installation_files/artifacts/web.war"
-    - url: "https://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
       dest: "/tmp/installation_files/artifacts/rest.war"
-    - url: "https://755b-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
       dest: "/tmp/installation_files/artifacts/jar-tool.jar"
   get_url:
     url: "{{ item.url }}"
@@ -14,6 +14,7 @@
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
       "X-Requested-By": "Jenkins"
+    parallelism: 3
   loop: "{{ download_urls }}"
   async: 3600
   poll: 5
