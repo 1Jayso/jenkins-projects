@@ -37,8 +37,8 @@
     dest: "/tmp/installation_files/config_files"
     copy: no
   with_items:
-    - /tmp/installation_files/config_files/gk-*
-    - /tmp/installation_files/config_files/si-*
+    - /tmp/installation_files/config_files/gk-*.zip
+    - /tmp/installation_files/config_files/si-*.zip
  
    
 
