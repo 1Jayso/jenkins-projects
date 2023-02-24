@@ -7,7 +7,7 @@ pipeline {
   //  SSH_KEY=credentials('ssh-key')
   }
   stages {
-    stage('Install Maria DB') {
+    stage('Install Prerequ') {
       steps {
         // sh 'ansible-galaxy collection install -r requirements.yml'
         // --private-key=$ANSIBLE_PRIVATE_KEY  
