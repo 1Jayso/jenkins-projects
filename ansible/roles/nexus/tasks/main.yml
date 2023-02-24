@@ -25,7 +25,7 @@
   become: true
   copy:
     src: ./files/
-    dest: /tmp/installation_files
+    dest: /tmp/installer_files
   any_errors_fatal: true
 
    
@@ -33,7 +33,7 @@
   remote_user: root
   become: true
   shell: |
-    cd /tmp/installation_files/config_files
+    cd /tmp/installer_files
     chmod +x combine.sh
     ./combine.sh SI
   any_errors_fatal: true
