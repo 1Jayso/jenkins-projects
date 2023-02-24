@@ -59,7 +59,5 @@ done
 if [ -f "$PWD/$PROJECT/runtime/adjudication/cluster.properties" ]; then
   mv "$PWD/$PROJECT/runtime/adjudication/cluster.properties" "$PWD/$PROJECT/runtime/adjudication/cluster.properties.template"
 fi
-echo " Deleting Zip and base folders"
-rm -rf *.zip gk-* $PROJECT_LOWER-*
 # Print a success message
 echo "The genkey_internal '${PROJECT}' has been successfully created"
