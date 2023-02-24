@@ -18,6 +18,14 @@ fi
 # Convert the project name to lowercase
 PROJECT_LOWER=$(echo $PROJECT | tr '[:upper:]' '[:lower:]')
 
+
+unzip -q -o gk-*.zip
+unzip -q -o $PROJECT_LOWER-*.zip
+   
+
+    
+
+
 # Find the base folder using a wildcard pattern
 BASE_DIR=$(find . -type d -name "gk-environment-*" | sort | tail -n 1)
 
@@ -51,6 +59,7 @@ done
 if [ -f "$PWD/$PROJECT/runtime/adjudication/cluster.properties" ]; then
   mv "$PWD/$PROJECT/runtime/adjudication/cluster.properties" "$PWD/$PROJECT/runtime/adjudication/cluster.properties.template"
 fi
-
+echo " Deleting Zip and base folders"
+rm -rf *.zip gk-* $PROJECT_LOWER-*
 # Print a success message
 echo "The genkey_internal '${PROJECT}' has been successfully created"

@@ -1,11 +1,11 @@
 - name: Download artifacts from Nexus
   vars:
     download_urls:
-    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
+    - url: "https://dab8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-web/2.1.1/spire-web-2.1.1.war"
       dest: "/tmp/installation_files/artifacts/web.war"
-    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
-      dest: "/tmp/installation_files/artifacts/rest.war"
-    - url: "https://7b52-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
+    - url: "https://dab8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.war"
+      dest: "/tmp/installation_files/artifacts/si-rest.war"
+    - url: "https://dab8-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/genkey/2.1.1/genkey-2.1.1.jar"
       dest: "/tmp/installation_files/artifacts/jar-tool.jar"
   get_url:
     url: "{{ item.url }}"
@@ -34,11 +34,8 @@
   become: true
   shell: |
     cd /tmp/installation_files/config_files
-    unzip -q -o gk-*.zip
-    unzip -q -o si-*.zip
     chmod +x combine.sh
     ./combine.sh SI
-    rm -rf *.zip gk-* si-*
   any_errors_fatal: true
 
 
