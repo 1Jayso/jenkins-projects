@@ -1,9 +1,9 @@
-- name: Create A ddirectory for the build files
+- name: Create A directory for the build files
   remote_user: root
   become: true
   shell: |
     cd /tmp
-    mkdir -p installer_files
+    mkdir -p installer_files &
   any_errors_fatal: true
 
 - name: Download artifacts from Nexus
@@ -18,7 +18,6 @@
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
-    creates: "{{ item.dest }}"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
