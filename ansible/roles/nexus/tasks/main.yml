@@ -3,7 +3,7 @@
   become: true
   shell: |
     cd /tmp
-    mkdir installer_files
+    mkdir -p installer_files
   any_errors_fatal: true
 
 - name: Download artifacts from Nexus
