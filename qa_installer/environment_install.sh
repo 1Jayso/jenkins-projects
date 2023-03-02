@@ -26,7 +26,7 @@ _standlone_installation()
   #ansible-playbook installation_play.yml --tags "standalone"
 }
 
-_multi_node_installation()
+_multi_node_installation(){
 
  echo " Getting Files Ready for Installation On Multinode system"
  ansible-playbook installation_play.yml -i ./ansible/inventory.txt --tags "spire,database,configuration" 
