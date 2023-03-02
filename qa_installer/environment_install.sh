@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 #WORKINGFOLDER=`pwd`
 #echo at start
@@ -119,6 +120,6 @@ esac
 
 }
 
-./pre_req.sh ${TENANT}
+./qa_installer/pre_req.sh ${TENANT}
 _starting_up_project
 
