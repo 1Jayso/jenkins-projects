@@ -22,7 +22,7 @@ _Usage()
 _standlone_installation()
 {
  echo " Getting Files Ready for Installation"
- ansible-playbook installation_play.yml --tags "standalone" -i ./ansible/inventory.txt  --private-key private_keys -vvv 
+ ansible-playbook ./qa_installer/installation_play.yml --tags "standalone" -i ./ansible/inventory.txt  --private-key private_keys -vvv 
   #ansible-playbook installation_play.yml --tags "standalone"
 }
 
