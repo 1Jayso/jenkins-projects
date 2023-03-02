@@ -1,0 +1,6 @@
+---
+# vars file for elasticsearch
+#
+  elasticsearch_rpm_version: elasticsearch-2.3.4.rpm
+  installer_data_dir: /tmp/installer_files
+

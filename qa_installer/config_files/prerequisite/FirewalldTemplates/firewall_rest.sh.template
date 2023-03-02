@@ -1,0 +1,3 @@
+firewall-cmd --zone=public --add-port=srsWebPort/tcp --permanent
+firewall-cmd --zone=public --add-port=secureSrsWebPort/tcp --permanent
+firewall-cmd --reload

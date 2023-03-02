@@ -1,0 +1,98 @@
+---
+  - name: Transfering postgres rpm files
+    synchronize:
+      src: ./files/postgres96_rpms
+      dest: "{{installer_data_dir}}"
+      #backup: yes
+
+  - name: find rpm file and register the result
+    find:
+      paths: "{{installer_data_dir}}/postgres96_rpms"
+      patterns: "*.rpm"
+    register: pg_rpm_files
+
+  - set_fact:
+      pg_rpm_list: "{{ pg_rpm_files.files | map(attribute='path') | list }}"
+
+  - name: install rpm files using rpm_list
+    yum:
+      name: "{{pg_rpm_list}}"
+      state: present
+  - file:
+      src: /usr/lib/systemd/system/postgresql-9.6.service
+      dest: /etc/systemd/system/postgresql.service
+      state: link
+  - name: Checking if PostgreSQL database has been initialized
+    stat:
+      path: "{{postgres_data_dir}}/PG_VERSION"
+    register: postgres_init_check
+
+  - name: initialize the DB
+    command: "{{postgresql_bin_setup}} initdb"
+    when: not postgres_init_check.stat.exists
+
+  - name: Add to startup
+    systemd:
+      name: "{{postgres_service_version}}"
+      enabled: yes
+
+  - name: Start the service
+    systemd:
+      name: "{{postgres_service_version}}"
+      state: started
+
+  - name: Configuring PostgreSQL
+    copy: 
+      src: ./files/database/postgresql/postgresql.conf.primary
+      dest: "{{postgres_data_dir}}/postgresql.conf"
+  - copy:
+      src: ./files/database/postgresql/pg_hba.conf.primary
+      dest: "{{postgres_data_dir}}/pg_hba.conf"
+  - copy:
+      src: "{{postgres_data_dir}}/postgresql.conf"
+      dest: "{{postgres_data_dir}}/postgresql.copy.conf"
+      remote_src: yes
+
+  - name:
+    systemd:
+      daemon_reload: yes
+
+  - systemd:
+      name: postgresql.service
+      state: restarted  
+
+  - name: Transfering database scriptes
+    copy: 
+      src: ./files/DatabaseScripts
+      dest: "{{installer_data_dir}}"
+
+  - name: Spire Database User
+    become: true
+    become_user: postgres
+    command: psql -U postgres -f {{installer_data_dir}}/DatabaseScripts/CommonScripts/create_pg_user_spire.sql
+
+  - name: Adjudication User Creation
+    become: true
+    become_user: postgres
+    command: psql -U postgres -f {{installer_data_dir}}/DatabaseScripts/CommonScripts/create_pg_user_adjudication.sql
+
+#  - name: ABIS Controller SQL Script
+#    become: true
+#    become_user: postgres
+#    command: psql -U postgres -f /tmp/installer_files/DatabaseScripts/CommonScripts/create_pg_user_abis_controller.sql
+
+
+
+#  #- name: Configuring Postgresql with Genkey Specific Configuration
+  #  copy:
+  #    src: ./files/postgresql/{{ item }}
+  #    dest: var/lib/pgsql/9.6/data/{{ item }}
+  #  with_items:
+  #   - postgresql.conf
+  #   - pg_hba.conf
+
+#  - name: Start the service
+#    systemd:
+#      name: postgresql-9.6.service
+#      state: restarted
+ 

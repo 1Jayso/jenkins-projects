@@ -1,0 +1,21 @@
+#!/bin/sh
+
+
+[Unit]
+Description=Service Script for Adjudication Web
+After=network.target
+
+[Service]
+Type=forking
+
+RemainAfterExit=yes
+ExecStart=/etc/systemd/system/adjudication start
+ExecStop=/etc/systemd/system/adjudication stop
+TimeoutSec=300
+SuccessExitStatus=143
+
+
+
+[Install]
+WantedBy=multi-user.target
+

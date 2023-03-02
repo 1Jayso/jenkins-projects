@@ -1,0 +1,32 @@
+---
+  - name: Copying Update Configuration Files
+    copy: 
+      src: ./files/
+      dest: /root
+
+  - name: Create symbolic link for logs
+    ansible.builtin.script: ./files/logSymLinks.sh
+
+  - file:
+      dest: /root/{{ item }}
+      owner: root
+      group: root
+      mode: '0755'
+    with_items:
+      - UpdateConfigurationFiles.sh
+      - installer_config_processor.sh 
+      - clean_up.sh
+
+  - shell: "sh /root/clean_up.sh"
+  - shell: "dos2unix *"
+  - shell: "sh /root/UpdateConfigurationFiles.sh"
+# tasks file for updateConfiguration
+  - systemd:
+      name: elasticsearch.service
+      state: started
+
+  - systemd:
+      name: spire_web.service
+      state: started
+
+

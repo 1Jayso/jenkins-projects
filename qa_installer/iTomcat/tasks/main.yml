@@ -1,0 +1,127 @@
+---
+      - name: Checking if Apache Exist
+        stat:
+           path: /usr/share/{{tomcat_version }}
+        register: apache_server
+
+      - unarchive:
+          src: ./files/tomcat/{{tomcat_version }}.tar.gz
+          dest: "{{installer_data_dir}}"
+        when: not apache_server.stat.exists
+      
+      - name: Copying Content of Apache Tomcat9 to tomcat_spire
+        shell: "cp -r {{installer_data_dir}}/{{tomcat_version }}/  /usr/share/"
+        when: not apache_server.stat.exists
+
+      - name: Configure Tomcat logs 
+        file:
+          src: /usr/share/{{tomcat_version }}
+          dest: /usr/share/tomcat_spire
+          state: link
+      - file: 
+          src: /usr/share/{{tomcat_version }}/logs
+          dest: /var/log/tomcat
+          state: link
+
+      - name: Configuring Service Scripts
+        copy:
+          src: ./files/service_files/spire_web.service
+          dest: /etc/systemd/system/
+          mode: '0755'
+
+      - copy:
+          src: ./files/service_files/spire_web
+          dest: /etc/systemd/system/
+          mode: '0755'
+
+      - file:
+          path: /usr/share/{{tomcat_version }}/bin/
+          mode: 755
+          recurse: yes
+
+      - systemd:
+          name: spire_web.service
+          enabled: yes
+
+      - copy:
+          src: ./files/tomcat/tomcat_confs/{{ item }}
+          dest: /usr/share/{{tomcat_version }}/conf/
+        with_items:
+          - catalina.properties
+          - context.xml
+          - logging.properties
+          - tomcat-users.xml
+
+      - name: Sending catalina.sh 
+        copy:
+          src: ./files/tomcat/tomcat_confs/{{ item }}
+          dest: /usr/share/{{tomcat_version }}/bin/
+        with_items:
+            - catalina.sh
+            - setenv.sh
+
+      - copy:
+          src: ./files/tomcat/tomcat_confs/server.xml
+          dest: /usr/share/{{tomcat_version }}/conf/server.xml.template
+#cTomcatSSL
+      - name: Generating server.keystore
+        include: cssl.yml
+      
+      - file:
+          path: /usr/share/{{tomcat_version }}/bin/catalina.sh
+          mode: 755
+
+      - name: Transfering Server.keystore to Tomcat folder
+        copy:
+          src: /root/ssl/server.keystore
+          dest: /usr/share/tomcat_spire
+          remote_src: yes
+
+      - file:
+          dest: /usr/share/{{tomcat_version }}
+          owner: spire
+          group: spire
+          mode: '0755'
+          recurse: yes
+
+      - file:
+          dest: /var/log/tomcat/
+          owner: spire
+          group: spire
+          recurse: yes
+
+      - name: Removing Tomcat Default Folders
+        file: 
+          path: "{{ item }}"
+          state: absent
+        with_items:
+          - /usr/share/{{tomcat_version }}/webapps/ROOT
+          - /usr/share/{{tomcat_version }}/webapps/examples
+          - /usr/share/{{tomcat_version }}/webapps/docs
+
+      #- file: 
+       #   dest: /root/ssl/firewall_spire_web.sh
+        #  mode: '0755'
+      #- shell: " /root/ssl/firewall_spire_web.sh*"
+      #- name: Installing SPiRE Web
+      - name: Installing SPiRE Rest
+        ansible.builtin.script: ./files/install_products.sh {{ PROJECT_NAME }}
+        #copy: 
+          #src: ./files/war_files/{{ spire_war_file }}
+          #dest: /usr/share/tomcat_spire/webapps/{{ spire_war_file }}
+       
+      #- name: Rename War File
+        #command: mv /usr/share/tomcat_spire/webapps/{{ spire_war_file }} /usr/share/tomcat_spire/webapps/web.war
+        
+      - name: Change Ownership
+        file:
+          path: /usr/share/tomcat_spire/webapps/
+          owner: spire
+          group: spire
+          recurse: yes
+
+     #- name: Start the service
+       #systemd:
+         #name:  spire_web.service
+         #state: started
+

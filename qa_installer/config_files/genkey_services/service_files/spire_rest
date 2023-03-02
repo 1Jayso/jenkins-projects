@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# description: Tomcat Start Stop Restart for SPiRE Rest
+
+# processname: tomcat
+
+# chkconfig: 345 20 80
+
+if [ "xx$JAVA_HOME" == "xx" ];
+then
+        export JAVA_HOME=/usr/java/jdk1.8.0_101
+fi 
+
+if [ "xx$CATALINA_HOME" == "xx" ];
+then
+        export CATALINA_HOME=/usr/share/tomcat_rest
+fi
+
+if [ "xx$GENKEY_INTERNAL" == "xx" ];
+then
+        export GENKEY_INTERNAL=/${DATA_DIR}/GENKEY_INTERNAL
+fi
+export GENKEY_SPIRE_UPDATE_LZ=$GENKEY_INTERNAL/update
+ 
+
+case $1 in
+
+  start)
+	
+    #/etc/init.d/hornetq restart
+    cd $CATALINA_HOME/bin/
+    su spire $CATALINA_HOME/bin/startup.sh
+
+    ;;
+
+  stop)
+	cd $CATALINA_HOME/bin/
+    su spire $CATALINA_HOME/bin/shutdown.sh
+    
+    ;;
+
+  restart)
+
+    cd $CATALINA_HOME/bin/
+    su spire $CATALINA_HOME/bin/shutdown.sh
+    
+    #/etc/init.d/hornetq restart
+    
+    su spire $CATALINA_HOME/bin/startup.sh
+
+    ;;
+
+esac
+
+exit 0

@@ -1,0 +1,52 @@
+---
+# tasks file for iGenkeyInternal
+  #- name: Create Environment Folders
+    #copy:
+      #src: ./files/createDirectories.sh
+      #dest: /tmp/scripts/
+      #mode: '0755'
+
+  - name: creating directory
+    ansible.builtin.script: ./files/createDirectories.sh
+
+  #- command: sh /tmp/scripts/createDirectories.sh
+
+  - name: Copy SPiRE.sh
+    copy:
+      src: ./files/spire.sh
+      dest: /etc/profile.d/
+      mode: '0755'
+
+  - command: sh /etc/profile.d/spire.sh
+   
+#  - name: Configure NFS Client
+#    command: sh /home/genkey_installer/iGenkeyInternal/files/nfs_client.sh
+
+  - name: Copy Genkey Internal Folder
+    copy:
+      src: ./files/GENKEY_INTERNAL/
+      dest: /data/GENKEY_INTERNAL
+     # fail_on_missing: yes
+     #
+  - name: Copy Genkey Internal Folder
+    copy:
+      src: "{{installer_data_dir}}/{{TENANT}}"
+      dest: "/data/GENKEY_INTERNAL/3/ext/"
+      remote_src: true
+  
+  - name: Create Genkey Internal Symbolic link
+    file:
+      src: /data/GENKEY_INTERNAL
+      dest: /genkey_internal
+      state: link
+
+  - name: Set Genkey Internal Folder Permission
+    file:
+      dest: /data/GENKEY_INTERNAL
+      owner: spire
+      group: spire
+      mode: '0755'
+      recurse: yes
+
+
+      

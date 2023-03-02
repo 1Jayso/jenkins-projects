@@ -1,0 +1,3 @@
+firewall-cmd --zone=public --add-port=spdWebPort/tcp --permanent
+firewall-cmd --zone=public --add-port=secureSpdWebPort/tcp --permanent
+firewall-cmd --reload

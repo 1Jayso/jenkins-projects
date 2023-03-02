@@ -1,0 +1,21 @@
+#!/bin/sh
+
+
+[Unit]
+Description=Service Script for Spire REST
+After=network.target
+
+[Service]
+Type=forking
+
+RemainAfterExit=yes
+ExecStart=/etc/systemd/system/spire_rest start
+ExecStop=/etc/systemd/system/spire_rest stop
+TimeoutSec=300
+SuccessExitStatus=143
+
+
+
+[Install]
+WantedBy=multi-user.target
+

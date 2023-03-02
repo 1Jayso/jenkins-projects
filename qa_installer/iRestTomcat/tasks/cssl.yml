@@ -1,0 +1,32 @@
+---
+  - name: check that the server.keystore is present
+    stat:
+      path: /root/ssl/server.keystore
+    register: keystore_result
+
+
+  - name: Configuring SSl 
+    file:
+      path: /root/ssl
+      state: directory
+
+  - name: Transporting certificate script
+    copy: 
+      src: ./files/ssl_files/
+      dest: /root/ssl
+      mode: '0755'
+      directory_mode: yes
+
+  - name: Transporting Password files
+    copy:
+      src: ./files/password_files/{{ item }}
+      dest: /root/ssl
+    with_items:
+      - pass1
+      - pass2
+      - pass3
+
+  - name: Generating Certificates
+    command: /root/ssl/ssl_setup.sh
+  
+    when: not keystore_result.stat.exists

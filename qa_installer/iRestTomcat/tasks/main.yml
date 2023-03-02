@@ -1,0 +1,122 @@
+---
+      - name: Checking if Apache Exist
+        stat:
+           path: "{{ installer_data_dir }}/{{tomcat_version }}"
+        register: apache_server
+  
+      - name: Configure Tomcat Rest
+        file:
+          path: /usr/share/tomcat_rest
+          state: directory
+
+      - unarchive:
+          src: ./files/tomcat/{{tomcat_version }}.tar.gz
+          dest: "{{installer_data_dir}}"
+        when: not apache_server.stat.exists
+
+      - name: Copying Content of Apache Tomcat9 to tomcat_rest
+        copy:
+          src: "{{installer_data_dir}}/{{tomcat_version }}/"
+          dest: /usr/share/tomcat_rest
+          remote_src: true
+        #shell: "cp -r {{installer_data_dir}}/{{tomcat_version }}/*  /usr/share/tomcat_rest/"
+
+      - file: 
+          src: /usr/share/tomcat_rest/logs
+          dest: /var/log/tomcat_rest
+          state: link
+
+      - name: Configuring Service Scripts
+        copy:
+          src: ./files/service_files/{{ item }}
+          dest: /etc/systemd/system/
+          mode: '0755'
+        with_items:
+          - spire_rest.service
+          - spire_rest
+          
+
+      - systemd:
+          name: spire_rest.service
+          enabled: yes
+
+      - copy:
+          src: ./files/tomcat/tomcat_confs/{{ item }}
+          dest: /usr/share/tomcat_rest/conf/
+        with_items:
+          - catalina.properties
+          - context.xml
+          - logging.properties
+
+      - name: Sending catalina.sh 
+        copy:
+          src: ./files/tomcat/tomcat_confs/{{ item }}
+          dest: /usr/share/tomcat_rest/bin/
+        with_items:
+          - catalina.sh
+          - setenv.sh
+
+      - copy:
+          src: ./files/tomcat/tomcat_confs/server_rest.xml
+          dest: /usr/share/tomcat_rest/conf/server.xml.template
+#cTomcatSSL
+      - name: Generating server.keystore
+        include: cssl.yml
+      
+      - name: Transfering Server.keystore to Tomcat folder
+        copy:
+          src: /root/ssl/server.keystore
+          dest: /usr/share/tomcat_rest
+          remote_src: yes
+
+      - file:
+          dest: /usr/share/tomcat_rest
+          owner: spire
+          group: spire
+          mode: '0755'
+          recurse: yes
+
+      - file:
+          dest: /var/log/tomcat_rest/
+          owner: spire
+          group: spire
+          recurse: yes
+
+      - name: Removing Tomcat Default Folders
+        file: 
+          path: "{{ item }}"
+          state: absent
+        with_items:
+          - /usr/share/tomcat_rest/webapps/ROOT
+          - /usr/share/tomcat_rest/webapps/examples
+          - /usr/share/tomcat_rest/webapps/docs
+
+      - name: Installing SPiRE Rest
+        ansible.builtin.script: ./files/install_products.sh {{ PROJECT_NAME }}
+      #- file: 
+       #   dest: /root/ssl/firewall_spire_web.sh
+        #  mode: '0755'
+      #- shell: " /root/ssl/firewall_spire_web.sh*"
+
+      #- name: Installing SPiRE Rest
+        #copy: 
+          #src: ./files/war_files/{{rest_war_file}}
+          #dest: /usr/share/tomcat_rest/webapps/{{ rest_war_file }}
+         
+       
+      #- name: Rename War File
+        #command: mv /usr/share/tomcat_rest/webapps/{{rest_war_file}} /usr/share/tomcat_rest/webapps/{{ TENANT }}-rest.war
+        
+      - name: Change Ownership
+        file:
+          path: /usr/share/tomcat_rest/webapps/
+          owner: spire
+          group: spire
+          recurse: yes
+
+     #- name: Start the service
+       #systemd:
+        #name:  spire_rest.service
+         #state: started
+
+

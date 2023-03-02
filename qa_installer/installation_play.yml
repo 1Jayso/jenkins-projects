@@ -1,0 +1,105 @@
+---
+  - name: Setting up Standalone Installation
+    hosts: genkeyservers
+    become: true
+    gather_facts: true
+    pre_tasks:
+      #- name: Exporting Environment Variables
+        #copy:
+          #src: /home/ansible-installer/qa_installer/config_files/pre_tasks/genkey_env_var.sh.tpl
+          #dest: /tmp/installer_files/
+          #mode: '0755'
+
+      #- name: Exporting Environment Variables
+        #copy:
+          #src: /home/ansible-installer/qa_installer/config_files/pre_tasks/env_prep.sh
+          #dest: /tmp/installer_files/
+          #mode: '0755'
+
+      #- name: Exporting Environment Variables
+        #command: "sh /tmp/installer_files/env_prep.sh {{TENANT}}"
+
+      #- name: Fetching info from module
+        #fetch:
+          #src: /etc/profile.d/genkey_env_var.sh
+          #dest: /home/ansible-installer/qa_installer/
+          #flat: yes
+
+      #- name: Running the Pretask script
+        #local_action:
+          #module: shell
+          #cmd: /home/ansible-installer/qa_installer/config_files/pre_tasks/pretask.sh
+          
+
+    roles:
+      #- prerequisite
+      #- elasticsearch
+      #- database_setup
+      #- iGenkeyInternal
+      #- iTomcat
+      # iRestTomcat
+      #- iAdjudicationTomcat
+      - updateConfiguration
+    tags: standalone
+
+  - name: Install SPIRE Web
+    hosts: spirewebserver
+    become: true
+    gather_facts: false
+    roles:
+      - prerequisite
+      - elasticsearch
+      - iGenkeyInternal
+      - iTomcat
+      - updateConfiguration
+    tags: SpireWeb
+
+  - name: Install Adjudication UI
+    hosts: adjudicationuiserver
+    become: true
+    gather_facts: false
+    roles:
+      - prerequisite
+      - elasticsearch
+      - iGenkeyInternal
+      - iAdjudicationTomcat
+      - updateConfiguration
+    tags: adjudicationUI
+
+  - name: Install SPiRE Rest
+    hosts: restserver
+    become: true
+    gather_facts: false
+    roles:
+      - prerequisite
+      - elasticsearch
+      - iGenkeyInternal
+      - iRestTomcat
+      - updateConfiguration
+    tags: spirerest
+
+
+  - name: Setting up Multi node Installation
+    hosts: genkeyservers
+    become: true
+    roles:
+      - prerequisite
+      - elasticsearch
+      - iGenkeyInternal
+      - iTomcat
+    tags: spire
+
+  - name: Installing Database for Multinode
+    hosts: databaseservers
+    become: true
+    roles:
+      #- prerequisite
+      - database_setup
+    tags: database
+ 
+  - name: Finishing Up installer
+    hosts: All
+    become: true
+    roles: 
+      - updateConfiguration
+    tags: configuration

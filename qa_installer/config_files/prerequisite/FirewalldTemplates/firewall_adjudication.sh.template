@@ -1,0 +1,3 @@
+firewall-cmd --zone=public --add-port=adjWebPort/tcp --permanent
+firewall-cmd --zone=public --add-port=secureAdjWebPort/tcp --permanent
+firewall-cmd --reload

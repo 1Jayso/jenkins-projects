@@ -1,0 +1,91 @@
+﻿Place Holder,,,Installation Value,,,File Location,,,Comments
+adjWebPort,,,8090,,,/usr/share/tomcat_adjudication/conf/server.xml,,,Regular Port for accessing the adjudication web application
+adjDBName,,,gkadjudication,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database name for adjudication configuration
+adjDBUser,,,gkadjudication,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database user for adjudication configuration
+adjDBPass,,,gkadjudication,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database password for adjudication configuration
+,,,,,,,,,
+---,,,---,,,---,,,---
+elasticSearchClusterName,,,gkspiresitest,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,elastic search cluster name is defined here
+elasticSearchNodeName,,,Genkey TEST Node SI,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,elastic search node name is defined here
+elasticSearchIP,,,172.16.218.59,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,elastic search ip is defined here
+elasticIndex,,,gkspire,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,elastic search index is defined here
+elasticSearchPort,,,9300,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,elastic search port is defined here
+,,,,,,,,,
+---,,,---,,,---,,,---
+adjgwConsumersMin,,,4,,,/genkey_internal/3/ext/SI/runtime/adjudication/cluster.properties,,,Adjudication Gateway Mininum consumers
+adjgwConsumersMax,,,8,,,/genkey_internal/3/ext/SI/runtime/adjudication/cluster.properties,,,Adjudication Gateway Maximum consumers
+hornetqaddress,,,0.0.0.0 ,,,/genkey_internal/3/ext/SI/runtime/adjudication/cluster.properties,,,abis.hornetq.host.address for adjudcaiton configuration (JBOSS7 ip)
+,,,,,,,,,
+---,,,---,,,---,,,---
+elasticSearchClusterName,,,gkspiresitest,,,/etc/elasticsearch/elasticsearch.yml,,,ElasticSearch Cluster Name
+elasticSearchNodeName,,,Genkey TEST Node SI,,,/etc/elasticsearch/elasticsearch.yml,,,ElasticSearch Node Name
+elasticSearchIP,,,172.16.218.59,,,/etc/elasticsearch/elasticsearch.yml,,,Elastic Search IP address
+elasticSearchDataDIR,,,/data/elasticSearchData,,,/etc/elasticsearch/elasticsearch.yml,,,Elastic Search Data Directory
+elasticSearchLogDIR,,,/home/logFiles/elasticSearchLogs,,,/etc/elasticsearch/elasticsearch.yml,,,Elastic Search Log Directory
+,,,,,,,,,
+---,,,---,,,---,,,---
+tenantName,,,SI,,,/genkey_internal/3/ext/SI/si-sample-tenant.properties,,,Tenant Name of Project
+LcTenantName,,,si,,,/genkey_internal/3/ext/SI/si-sample-tenant.properties,,,Tenant Name of Project (LowerCase)
+pmtFile,,,PMT-1,,,/genkey_internal/3/ext/SI/si-sample-tenant.properties,,,PMT File
+,,,,,,,,,
+---,,,---,,,---,,,---
+spwWebPort,,,8082,,,/usr/share/tomcat_spire/conf/server.xml,,,Regular Port for accessing the SPiRE Web UI web application
+spsWebPort,,,8084,,,/usr/share/tomcat_selfservice/conf/server.xml,,,Regular Port for accessing the SPiRE SELF SERVICE UI web application
+spsaWebPort,,,8072,,,/usr/share/tomcat_selfserviceAdmin/conf/server.xml,,,Regular Port for accessing the SPiRE SELF SERVICEADMIN UI web application
+,,,,,,,,,
+---,,,---,,,---,,,---
+spdWebPort,,,8083,,,/usr/share/tomcat_demarcation/conf/server.xml,,,Regular Port for accessing the SPiRE Demarcation application
+,,,,,,,,,
+---,,,---,,,---,,,---
+spwDBHost,,,172.16.218.59,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database host IP for spire web
+spwDBPort,,,5432,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database host Port no for spire web
+spwDBName,,,gkspire,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database name for spire web
+spwDBPass,,,gkspire,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database password for spire web
+spwDBUser,,,gkspire,,,/genkey_internal/3/ext/SI/si-sample-db-postgres.properties,,,database user for spire web
+---,,,---,,,---,,,---
+srsWebPort,,,8085,,,/usr/share/tomcat_rest/conf/server.xml,,,Regular Port for accessing the SPiRE REST web application (SI Only)
+,,,,,,,,,
+---,,,---,,,---,,,---
+srsABISHostFullURL,,,http://192.168.11.167:8000/abis,,,/genkey_internal/3/ext/SI/si-sample-abis-reference.properties,,,ABIS Host
+srsABISWatchFullURL,,,http://192.168.11.167:80/abis-orchestrator/abis,,,/genkey_internal/3/ext/SI/si-sample-abis-reference.properties,,,ABIS Host
+,,,,,,,,,
+---,,,---,,,---,,,---
+SSLClientOrganizationUnit,,,SI,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientCityName,,,Nairobi,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientStreetName,,,Nairobi,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientCountryCode,,,KY,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientOrganizationUnit,,,Spire,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientCName,,,localhost.localdomain,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLClientEmailAddress,,,info@genkey.com,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCAOrganizationUnit,,,GenKey,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCACityName,,,Accra,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCAStreetName,,,East Legon,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCACountryCode,,,GH,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCAOrganizationUnit,,,Spire,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCACName,,,localhost.localdomain,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLCAEmailAddress,,,info@genkey.com,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLKeystorePassword,,,w3r@nd!PiT0uS,,,/root/ssl/ssl_setup.sh,,,SSL Setup
+SSLKeystorePasswordRepeat,,,w3r@nd!PiT0uS,,,/root/ssl/sign.sh,,,SSL Setup
+secureKeystorePassword,,,w3r@nd!PiT0uS,,,/usr/share/tomcat_spire/conf/server.xml,,,SSL Keystore password for SPiRE Web UI web application
+secureKeystorePassword,,,w3r@nd!PiT0uS,,,/usr/share/tomcat_rest/conf/server.xml,,,SSL Keystore password for REST web application
+secureKeystorePassword,,,w3r@nd!PiT0uS,,,/usr/share/tomcat_adjudication/conf/server.xml,,,SSL Keystore password for Adjudication web application
+secureKeystorePassword,,,w3r@nd!PiT0uS,,,/usr/share/tomcat_selfserviceAdmin/conf/server.xml,,,SSL Keystore password for Selfservice web Admin application
+secureKeystorePassword,,,w3r@nd!PiT0uS,,,/usr/share/tomcat_selfservice/conf/server.xml,,,SSL Keystore password for Selfservice web application
+secureAdjWebPort,,,8447,,,/usr/share/tomcat_adjudication/conf/server.xml,,,SSL Port for accessing the adjudication web application
+secureSrsWebPort,,,8445,,,/usr/share/tomcat_rest/conf/server.xml,,,SSL Port for accessing the SPiRE REST web application
+secureSpwWebPort,,,8443,,,/usr/share/tomcat_spire/conf/server.xml,,,SSL Port for accessing the SPIRE Web UI web application
+secureSpdWebPort,,,8448,,,/usr/share/tomcat_demarcation/conf/server.xml,,,SSL Port for accessing the SPIREDemarcation application
+secureSpsWebPort,,,8449,,,/usr/share/tomcat_selfservice/conf/server.xml,,,SSL Port for accessing the SPIRESelfservice application
+secureSpsaWebPort,,,8411,,,/usr/share/tomcat_selfserviceAdmin/conf/server.xml,,,SSL Port for accessing the SPIRESelfservice Admin application
+,,,,,,,,,
+---,,,---,,,---,,,---
+secureSpsWebPort,,,8449,,,/root/ssl/firewall_selfservice.sh,,,Firewall Pass for SSL Port for accessing the selfservice web application
+secureAdjWebPort,,,8447,,,/root/ssl/firewall_adjudication.sh,,,Firewall Pass for SSL Port for accessing the adjudication web application
+secureSpdWebPort,,,8448,,,/root/ssl/firewall_demarcation.sh,,,Firewall Pass for SSL Port for accessing the SPiRE REST web application
+secureSrsWebPort,,,8445,,,/root/ssl/firewall_rest.sh,,,Firewall Pass for SSL Port for accessing the SPiRE REST web application
+secureSpwWebPort,,,8443,,,/root/ssl/firewall_spire_web.sh,,,Firewall Pass for SSL Port for accessing the SPIRE Web UI web application
+srsWebPort,,,8085,,,/root/ssl/firewall_rest.sh,,,Firewall Pass for Regular Port for accessing the SPiRE REST web application
+spwWebPort,,,8082,,,/root/ssl/firewall_spire_web.sh,,,Firewall Pass for Regular Port for accessing the SPiRE Web UI web application
+adjWebPort,,,8090,,,/root/ssl/firewall_adjudication.sh,,,Firewall Pass for Regular Port for accessing the adjudication web application
+spdWebPort,,,8083,,,/root/ssl/firewall_demarcation.sh,,,Firewall Pass for Regular Port for accessing the demarcation application
+spsWebPort,,,8084,,,/root/ssl/firewall_selfservice.sh,,,Firewall Pass for Regular Port for accessing the selfservice application

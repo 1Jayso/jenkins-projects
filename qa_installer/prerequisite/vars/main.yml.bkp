@@ -1,0 +1,31 @@
+---
+# vars file for database_setup
+  TENANT: pcds
+  postgres_data_dir: /var/lib/pgsql/9.6/data
+  postgres_service_version: postgresql-9.6.service
+  postgresql_bin_setup: /usr/pgsql-9.6/bin/postgresql96-setup
+  elasticsearch_rpm_version: elasticsearch-2.3.4.rpm
+  installer_data_dir: /tmp/installer_files
+  tomcat_version: apache-tomcat-9.0.53
+  adj_war_file: adjudication-web-pcds-3.3.0-20220131.100117-9.war
+  rest_war_file: pcds-rest-server-2.1.0-20220116.120051-6.war
+  spire_war_file: spire-pcds-web-3.3.0-20220117.142353-4.war
+  packages_to_install:
+    - dos2unix-6.0.3-7.el7.x86_64.rpm
+    - fltk-1.3.4-1.el7.x86_64.rpm
+    - mesa-libGLU-9.0.0-4.el7.x86_64.rpm
+    - nspr-4.21.0-1.el7.x86_64.rpm
+    - CodeMeter64-5.0.1067-502.x86_64.rpm
+    - msttcore-fonts-2.0-3.noarch.rpm
+    - nss-3.44.0-7.el7_7.x86_64.rpm
+    - nss-softokn-3.44.0-8.el7_7.x86_64.rpm
+    - nss-softokn-freebl-3.44.0-8.el7_7.x86_64.rpm
+    - nss-sysinit-3.44.0-7.el7_7.x86_64.rpm
+    - nss-tools-3.44.0-7.el7_7.x86_64.rpm
+    - nss-util-3.44.0-4.el7_7.x86_64.rpm
+    - ntp-4.2.6p5-29.el7.centos.2.x86_64.rpm
+    - openssl-libs-1.1.1g-15.el8_3.x86_64.rpm
+    - openssl-1.1.1g-15.el8_3.x86_64.rpm
+    - tigervnc-1.8.0-19.el7.x86_64.rpm
+    - tigervnc-icons-1.8.0-19.el7.noarch.rpm
+    - tigervnc-server-1.8.0-19.el7.x86_64.rpm

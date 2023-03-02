@@ -1,0 +1,14 @@
+---
+  - name: installing elasticsearch
+    copy:
+      src: ./files/elasticsearch/{{elasticsearch_rpm_version}}
+      dest: "{{installer_data_dir}}"
+  - yum:
+      name: "{{installer_data_dir}}/{{elasticsearch_rpm_version}}"
+      state: present
+  - systemd:
+      name: elasticsearch.service
+      enabled: yes
+  - copy: 
+      src: ./files/elasticsearch/elasticsearch.yml.template
+      dest: /etc/elasticsearch/
