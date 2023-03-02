@@ -1,3 +1,11 @@
+- name: Create A ddirectory for the build files
+  remote_user: root
+  become: true
+  shell: |
+    cd /tmp
+    mkdir installer_files
+  any_errors_fatal: true
+
 - name: Download artifacts from Nexus
   vars:
     download_urls:
