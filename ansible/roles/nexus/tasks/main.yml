@@ -18,6 +18,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
+    creates: "{{ item.dest }}"
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
