@@ -3,7 +3,9 @@
     hosts: genkeyservers
     become: true
     gather_facts: true
-    pre_tasks:
+    vars::
+    - ansible_host_key_checking: false
+  
       #- name: Exporting Environment Variables
         #copy:
           #src: /home/ansible-installer/qa_installer/config_files/pre_tasks/genkey_env_var.sh.tpl
