@@ -7,13 +7,13 @@ pipeline {
   //  SSH_KEY=credentials('ssh-key')
   }
   stages {
-    stage('Download build files to Target Sever') {
-      steps {
-        // sh 'ansible-galaxy collection install -r requirements.yml'
-        // --private-key=$ANSIBLE_PRIVATE_KEY  
-        sh 'ansible-playbook -i ./ansible/inventory.txt  ./ansible/main.yml --private-key=$ANSIBLE_PRIVATE_KEY --extra-vars "target=test"'      
-      }
-    }
+    // stage('Download build files to Target Sever') {
+    //   steps {
+    //     // sh 'ansible-galaxy collection install -r requirements.yml'
+    //     // --private-key=$ANSIBLE_PRIVATE_KEY  
+    //     sh 'ansible-playbook -i ./ansible/inventory.txt  ./ansible/main.yml --private-key=$ANSIBLE_PRIVATE_KEY --extra-vars "target=test"'      
+    //   }
+    // }
 
      stage('Prerequisite Install') {
       steps {
