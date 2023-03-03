@@ -4,7 +4,7 @@ pipeline {
   } 
   environment {
   //  ANSIBLE_PRIVATE_KEY=credentials('ssh-key')
-   ANSIBLE_PRIVATE_KEY=credentials('jenkins-pv')
+   ANSIBLE_PRIVATE_KEY=credentials('jenkins-pv-41')
   //  SSH_KEY=credentials('ssh-key')
   }
   stages {
