@@ -1,8 +1,10 @@
 #!/bin/bash
+set -e
+
 export TENANT=$1
 export PROJECT_NAME=${TENANT,,}
-path = echo `pwd`
-export HOME_DIR=$path
+
+export HOME_DIR=`pwd`
 SPIRE_WEB_PATH=./qa_installer/iTomcat
 ADJUDICATION_UI_PATH=./qa_installer/iAdjudicationTomcat
 SPIRE_REST_PATH=./qa_installer/iRestTomcat
