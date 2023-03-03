@@ -1,12 +1,13 @@
 #!/bin/bash
 export TENANT=$1
 export PROJECT_NAME=${TENANT,,}
-
+path = echo `pwd`
+export HOME_DIR=$path
 SPIRE_WEB_PATH=./qa_installer/iTomcat
 ADJUDICATION_UI_PATH=./qa_installer/iAdjudicationTomcat
 SPIRE_REST_PATH=./qa_installer/iRestTomcat
 ELASTICSEARCH_PATH=./qa_installer/elasticsearch
-DATABASE_PATH=qa_installer/database_setup
+DATABASE_PATH=$HOME_DIR/qa_installer/database_setup
 GENKEY_INTERNAL_PATH=./qa_installer/iGenkeyInternal
 PREREQUISITE_PATH=./qa_installer/prerequisite
 GENKEY_INTERNAL_PATH_VAR=$GENKEY_INTERNAL_PATH/vars/main.yml
@@ -30,7 +31,7 @@ APACHE_VERSION_VALUE=$(basename $APACHE_VERSION)
 function _iDatabase_pre_setup(){
 echo "===> Setting up configuration files for database"
 rm -rf ${DATABASE_PATH}/files/*
-cp -r qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
+cp -r ./qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
 }
 
 function _iGenkey_internal_pre_setup(){
