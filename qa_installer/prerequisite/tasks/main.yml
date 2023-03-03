@@ -65,7 +65,7 @@
     
 
   - yum:
-      name: "{{installer_data_dir}}/java_rpms/java-1.8.0-openjdk-1.8.0.262.b10-1.el7.x86_64.rpm"
+      name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
       state: present
     when: not java_version.stat.exists 
 
