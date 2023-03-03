@@ -15,15 +15,15 @@ pipeline {
     //   }
     // }
 
-     stage('Prerequisite Install') {
-      steps {
-        sh './qa_installer/pre_req.sh'
-      }
-    }
-    // stage('Install Genkey products on Target Sever') {
+    //  stage('Prerequisite Install') {
     //   steps {
-    //     sh './qa_installer/environment_install.sh  SI standalone'
+    //     sh './qa_installer/pre_req.sh'
     //   }
     // }
+    stage('Install Genkey products on Target Sever') {
+      steps {
+        sh './qa_installer/environment_install.sh  SI standalone'
+      }
+    }
   }
 }

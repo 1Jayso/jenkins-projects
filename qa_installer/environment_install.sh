@@ -120,6 +120,6 @@ esac
 
 }
 
-
+./pre_req.sh
 _starting_up_project
 
