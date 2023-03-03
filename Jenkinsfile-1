@@ -23,7 +23,7 @@ pipeline {
     
     stage('Install Genkey products on Target Sever') {
       steps {
-        sh 'ansible-playbook ./ansible/inventory.txt  installation_play.yml --private-key=$ANSIBLE_PRIVATE_KEY  --tags "standalone"'
+        sh 'ansible-playbook -i ./ansible/inventory.txt  installation_play.yml --private-key=$ANSIBLE_PRIVATE_KEY  --tags "standalone"'
 '
       }
     }
