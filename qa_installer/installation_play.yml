@@ -34,74 +34,74 @@
           
 
     roles:
-      #- prerequisite
-      #- elasticsearch
-      #- database_setup
-      #- iGenkeyInternal
-      #- iTomcat
-      # iRestTomcat
-      #- iAdjudicationTomcat
+      - prerequisite
+      - elasticsearch
+      - database_setup
+      - iGenkeyInternal
+      - iTomcat
+      - iRestTomcat
+      - iAdjudicationTomcat
       - updateConfiguration
     tags: standalone
 
-  - name: Install SPIRE Web
-    hosts: spirewebserver
-    become: true
-    gather_facts: false
-    roles:
-      - prerequisite
-      - elasticsearch
-      - iGenkeyInternal
-      - iTomcat
-      - updateConfiguration
-    tags: SpireWeb
+  # - name: Install SPIRE Web
+  #   hosts: spirewebserver
+  #   become: true
+  #   gather_facts: false
+  #   roles:
+  #     - prerequisite
+  #     - elasticsearch
+  #     - iGenkeyInternal
+  #     - iTomcat
+  #     - updateConfiguration
+  #   tags: SpireWeb
 
-  - name: Install Adjudication UI
-    hosts: adjudicationuiserver
-    become: true
-    gather_facts: false
-    roles:
-      - prerequisite
-      - elasticsearch
-      - iGenkeyInternal
-      - iAdjudicationTomcat
-      - updateConfiguration
-    tags: adjudicationUI
+  # - name: Install Adjudication UI
+  #   hosts: adjudicationuiserver
+  #   become: true
+  #   gather_facts: false
+  #   roles:
+  #     - prerequisite
+  #     - elasticsearch
+  #     - iGenkeyInternal
+  #     - iAdjudicationTomcat
+  #     - updateConfiguration
+  #   tags: adjudicationUI
 
-  - name: Install SPiRE Rest
-    hosts: restserver
-    become: true
-    gather_facts: false
-    roles:
-      - prerequisite
-      - elasticsearch
-      - iGenkeyInternal
-      - iRestTomcat
-      - updateConfiguration
-    tags: spirerest
+  # - name: Install SPiRE Rest
+  #   hosts: restserver
+  #   become: true
+  #   gather_facts: false
+  #   roles:
+  #     - prerequisite
+  #     - elasticsearch
+  #     - iGenkeyInternal
+  #     - iRestTomcat
+  #     - updateConfiguration
+  #   tags: spirerest
 
 
-  - name: Setting up Multi node Installation
-    hosts: genkeyservers
-    become: true
-    roles:
-      - prerequisite
-      - elasticsearch
-      - iGenkeyInternal
-      - iTomcat
-    tags: spire
+  # - name: Setting up Multi node Installation
+  #   hosts: genkeyservers
+  #   become: true
+  #   roles:
+  #     - prerequisite
+  #     - elasticsearch
+  #     - iGenkeyInternal
+  #     - iTomcat
+  #   tags: spire
 
-  - name: Installing Database for Multinode
-    hosts: databaseservers
-    become: true
-    roles:
-      #- prerequisite
-      - database_setup
-    tags: database
+  # - name: Installing Database for Multinode
+  #   hosts: databaseservers
+  #   become: true
+  #   roles:
+  #     #- prerequisite
+  #     - database_setup
+  #   tags: database
  
-  - name: Finishing Up installer
-    hosts: All
-    become: true
-    roles: 
-      - updateConfiguration
-    tags: configuration
+  # - name: Finishing Up installer
+  #   hosts: All
+  #   become: true
+  #   roles: 
+  #     - updateConfiguration
+  #   tags: configuration
