@@ -36,7 +36,7 @@ cp -r ./qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
 function _iGenkey_internal_pre_setup(){
 echo "==> Setting up Genkey_internal file"
 #if [ -f ${GENKEY_INTERNAL_PATH}/files/* ]; then
-
+ls -l
 rm -rf ${GENKEY_INTERNAL_PATH}/files/*
 
 #fi
