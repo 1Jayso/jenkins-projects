@@ -3,7 +3,7 @@
     hosts: genkeyservers
     become: true
     gather_facts: true
-    vars::
+    vars:
     - ansible_host_key_checking: false
   
       #- name: Exporting Environment Variables
