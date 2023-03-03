@@ -56,7 +56,7 @@
     copy:
       src: ./files/java_rpms/
       dest: "{{installer_data_dir}}/java_rpms/"
-    when: not java_version.stat.exists
+    # when: not java_version.stat.exists
 
   - name: Download Java 8 RPM
     get_url:
