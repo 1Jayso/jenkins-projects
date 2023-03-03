@@ -52,18 +52,17 @@
       state: removed
     when: not java_version.stat.exists
 
-  # - name: Installing Java
-  #   copy:
-  #     src: ./files/java_rpms/
-  #     dest: "{{installer_data_dir}}/java_rpms/"
-    #when: not java_version.stat.exists
+  - name: Installing Java
+    copy:
+      src: ./files/java_rpms/
+      dest: "{{installer_data_dir}}/java_rpms/"
+    when: not java_version.stat.exists
 
   - name: Download Java 8 RPM
     get_url:
-      url: "http://mirror.centos.org/centos/7/os/x86_64/Packages/java-1.8.0-openjdk-1.8.0.262.b10-1.el7.x86_64.rpm"
-      dest: "{{installer_data_dir}}/java_rpms/java-1.8.0-openjdk-1.8.0.262.b10-1.el7.x86_64.rpm"
+      url: "https://download944.mediafire.com/nq2t8eb15ujgcncElMpMU1Aba-xVO2dN8DetjaU4uqV3uZ-aHKPyqWr_HmPIRPCycfw67g1w4pOxcCnsTkyPru7wXpzZs7s/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
+      dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
     
-
 
   - yum:
       name: "{{installer_data_dir}}/java_rpms/java-1.8.0-openjdk-1.8.0.262.b10-1.el7.x86_64.rpm"
