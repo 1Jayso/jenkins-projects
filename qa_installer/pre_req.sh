@@ -37,6 +37,7 @@ function _iGenkey_internal_pre_setup(){
 echo "==> Setting up Genkey_internal file"
 #if [ -f ${GENKEY_INTERNAL_PATH}/files/* ]; then
 ls -l
+pwd
 rm -rf ${GENKEY_INTERNAL_PATH}/files/*
 
 #fi
