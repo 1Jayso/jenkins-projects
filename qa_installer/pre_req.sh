@@ -30,7 +30,7 @@ APACHE_VERSION_VALUE=$(basename $APACHE_VERSION)
 function _iDatabase_pre_setup(){
 echo "===> Setting up configuration files for database"
 rm -rf ${DATABASE_PATH}/files/*
-cp -r ./qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
+cp -r qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
 }
 
 function _iGenkey_internal_pre_setup(){
