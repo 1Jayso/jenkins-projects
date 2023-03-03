@@ -32,7 +32,9 @@ APACHE_VERSION_VALUE=$(basename $APACHE_VERSION)
 
 function _iDatabase_pre_setup(){
 echo "===> Setting up configuration files for database"
-rm -rf ${DATABASE_PATH}/files/*
+
+# rm -rf ${DATABASE_PATH}/files/*
+touch ${DATABASE_PATH}/files/text.txt
 ls -l ${DATABASE_PATH}
 cp -r $HOME_DIR/qa_installer/config_files/db_files/* ${DATABASE_PATH}/files/
 }
