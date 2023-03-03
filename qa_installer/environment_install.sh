@@ -120,6 +120,6 @@ esac
 
 }
 
-./qa_installer/pre_req.sh ${TENANT}
+
 _starting_up_project
 
