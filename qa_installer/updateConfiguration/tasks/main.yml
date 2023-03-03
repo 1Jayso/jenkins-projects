@@ -29,4 +29,8 @@
       name: spire_web.service
       state: started
 
+  - systemd:
+      name: spire_rest.service
+      state: started
+
 
