@@ -15,14 +15,16 @@ pipeline {
     //   }
     // }
 
-    //  stage('Prerequisite Install') {
-    //   steps {
-    //     sh './qa_installer/pre_req.sh'
-    //   }
-    // }
+     stage('Prerequisite Install') {
+      steps {
+        sh './qa_installer/pre_req.sh SI'
+      }
+    }
+    
     stage('Install Genkey products on Target Sever') {
       steps {
-        sh './qa_installer/environment_install.sh  SI standalone'
+        sh 'ansible-playbook ./ansible/inventory.txt  installation_play.yml --private-key=$ANSIBLE_PRIVATE_KEY  --tags "standalone"'
+'
       }
     }
   }
