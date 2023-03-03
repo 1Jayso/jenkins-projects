@@ -34,6 +34,7 @@ echo "===> Setting up configuration files for database"
 
 rm -rf ${DATABASE_PATH}/files/*
 cp -r ./qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
+ls -l ${DATABASE_PATH}/files
 }
 
 function _iGenkey_internal_pre_setup(){
