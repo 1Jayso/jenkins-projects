@@ -62,13 +62,13 @@
     poll: 5
     register: download_result
 
-  - name: Wait for download to complete
-    async_status:
-      jid: "{{ download_result.ansible_job_id }}"
-    register: job_result
-    until: job_result.finished
-    retries: 30
-    delay: 10
+  # - name: Wait for download to complete
+  #   async_status:
+  #     jid: "{{ download_result.ansible_job_id }}"
+  #   register: job_result
+  #   until: job_result.finished
+  #   retries: 30
+  #   delay: 10
 
 
 
