@@ -1,7 +1,7 @@
 ---
-  - name: Transfering thirdparty files
+  - name: Transfering thirdparty files, Java and Libraries
     copy:
-      src: ./files/thirdParty_rpms
+      src: ./files/
       dest: "{{installer_data_dir}}"
       #backup: yes
 
@@ -51,6 +51,8 @@
       name: java*
       state: removed
     when: not java_version.stat.exists
+
+  
 
   - name: Installing Java
     get_url:
