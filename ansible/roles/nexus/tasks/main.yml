@@ -9,11 +9,11 @@
 - name: Download artifacts from Nexus
   vars:
     download_urls:
-    - url: "https://24d9-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-si-web/3.3.1-20230215.044745-239/spire-si-web-3.3.1-20230215.044745-239.war"
+    - url: "https://a5c5-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-si-web/3.3.1-20230215.044745-239/spire-si-web-3.3.1-20230215.044745-239.war"
       dest: "/tmp/installer_files/"
-    - url: "https://24d9-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-rest-server/2.1.1-20230113.144722-41/si-rest-server-2.1.1-20230113.144722-41.war"
+    - url: "https://a5c5-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-rest-server/2.1.1-20230113.144722-41/si-rest-server-2.1.1-20230113.144722-41.war"
       dest: "/tmp/installer_files/"
-    - url: "https://24d9-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-environment/2.1.1-20230203.140829-50/si-environment-2.1.1-20230203.140829-50.jar"
+    - url: "https://a5c5-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-environment/2.1.1-20230203.140829-50/si-environment-2.1.1-20230203.140829-50.jar"
       dest: "/tmp/installer_files/"
   get_url:
     url: "{{ item.url }}"
