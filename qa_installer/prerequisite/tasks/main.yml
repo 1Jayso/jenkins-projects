@@ -60,7 +60,7 @@
 
   - name: Download Java 8 RPM
     get_url:
-      url: "https://download944.mediafire.com/nq2t8eb15ujgcncElMpMU1Aba-xVO2dN8DetjaU4uqV3uZ-aHKPyqWr_HmPIRPCycfw67g1w4pOxcCnsTkyPru7wXpzZs7s/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
+      url: "https://download944.mediafire.com/t1yhukzq289grKe-dERx3xx-iOxLb2k2JqUY3fK0tzFNcyfyn12ljHm9ee95-TswqMhSyH-b2OGJgXcg8e-2hrrE4dVp6Q/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
       dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
     
 
