@@ -1,28 +1,28 @@
 ---
-  - name: Transfering thirdparty files, Java and Libraries
-    copy:
-      src: ./files/
-      dest: "{{installer_data_dir}}"
+  #- name: Transfering thirdparty files
+    #synchronize: 
+      #src: ./files/thirdParty_rpms
+      #dest: "{{installer_data_dir}}"
       #backup: yes
+ 
+  #- name: find rpm file and register the result
+    #find: 
+      #paths: "{{installer_data_dir}}/thirdParty_rpms" 
+      #patterns: "*.rpm"
+    #register: rpm_files
 
-  - name: find rpm file and register the result
-    find:
-      paths: "{{installer_data_dir}}/thirdParty_rpms"
-      patterns: "*.rpm"
-    register: rpm_files
-
-  - set_fact:
-      rpm_list: "{{ rpm_files.files | map(attribute='path') | list }}"
-
-  - name: stopping Package Kit
-    systemd:
-      name: packagekit
-      state: stopped
+  #- set_fact:
+      #rpm_list: "{{ rpm_files.files | map(attribute='path') | list }}"
+  
+  #- name: stopping Package Kit
+    #systemd:
+      #name: packagekit
+      #state: stopped
 
   - name: install rpm files using rpm_list
     yum:
-      name: "{{rpm_list}}"
-      state: present
+      name: "{{packages_to_install}}"
+      state: latest
 
 #sAddSpireUser
   - name: Adding User Spire
@@ -52,32 +52,22 @@
       state: removed
     when: not java_version.stat.exists
 
-  
-
   - name: Installing Java
+    copy:
+      src: ./files/java_rpms/
+      dest: "{{installer_data_dir}}/java_rpms/"
+    # when: not java_version.stat.exists
+
+  - name: Download Java 8 RPM
     get_url:
-      url: https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
+      url: "https://download944.mediafire.com/6ajgehyoz5rguFLqx2RClhVnlSftN9qcOx7-BDsN9rdFSEMcK6389R-b_uquIo2YMsCpeRJx0716ZcHXBhBFgPw1HwoDIw/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
       dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
-    async: 3600
-    poll: 5
-    register: download_result
-
-  # - name: Wait for download to complete
-  #   async_status:
-  #     jid: "{{ download_result.ansible_job_id }}"
-  #   register: job_result
-  #   until: job_result.finished
-  #   retries: 30
-  #   delay: 10
-
-
-
-
+    
 
   - yum:
       name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
       state: present
-    when: not java_version.stat.exists
+    when: not java_version.stat.exists 
 
   - name: Installing Font Files
     yum:
@@ -105,7 +95,7 @@
     copy:
       src: ./files/genkey_env_var.sh
       dest: /etc/profile.d/genkey_env_var.sh
-      mode: '0755'
+      mode: '0755' 
 #
   - shell: "sh /etc/profile.d/genkey_env_var.sh"
 
