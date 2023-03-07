@@ -58,7 +58,7 @@
     get_url:
       url: https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
       dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
-    async: 120
+    async: 3600
     poll: 5
     register: download_result
 
