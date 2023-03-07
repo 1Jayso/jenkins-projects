@@ -20,6 +20,9 @@
   - shell: "sh /root/clean_up.sh"
   - shell: "dos2unix *"
   - shell: "sh /root/UpdateConfigurationFiles.sh"
+    ignore_errors: true
+    
+
 # tasks file for updateConfiguration
   - systemd:
       name: elasticsearch.service
