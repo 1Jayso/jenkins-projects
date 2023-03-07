@@ -1,0 +1,101 @@
+---
+  - name: Transfering thirdparty files
+    synchronize:
+      src: ./files/thirdParty_rpms
+      dest: "{{installer_data_dir}}"
+      #backup: yes
+
+  - name: find rpm file and register the result
+    find:
+      paths: "{{installer_data_dir}}/thirdParty_rpms"
+      patterns: "*.rpm"
+    register: rpm_files
+
+  - set_fact:
+      rpm_list: "{{ rpm_files.files | map(attribute='path') | list }}"
+
+  - name: stopping Package Kit
+    systemd:
+      name: packagekit
+      state: stopped
+
+  - name: install rpm files using rpm_list
+    yum:
+      name: "{{rpm_list}}"
+      state: present
+
+#sAddSpireUser
+  - name: Adding User Spire
+    user:
+      name: spire
+      password: "{{ '5YsT3m@GnHR1!1' | password_hash('sha512') }}"
+      groups:
+        - wheel
+        - adm
+      state: "present"
+      shell: "/bin/bash"
+      system: false
+      create_home: true
+      home: "/home/spire"
+      comment: "genkey spire user"
+      generate_ssh_key: true
+
+#iJava
+  - name: checking Java Version
+    stat:
+      path: /usr/java/jdk1.8.0_101
+    register: java_version
+
+  - name: Uninstalling Java
+    yum:
+      name: java*
+      state: removed
+    when: not java_version.stat.exists
+
+  - name: Installing Java
+    get_url:
+      url: https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
+      dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
+
+    
+
+  - yum:
+      name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
+      state: present
+    when: not java_version.stat.exists
+
+  - name: Installing Font Files
+    yum:
+      name: "{{installer_data_dir}}/java_rpms/msttcore-fonts-2.0-3.noarch.rpm"
+      state: present
+
+  - name: Transfering the Font Files
+    shell: "cp /usr/share/fonts/msttcore/* /usr/java/latest/jre/lib/fonts/"
+
+  - name: Installing Image Utils
+    unarchive:
+      src: ./files/java_rpms/imagetools.20170209.tgz
+      dest: /usr/java/latest/lib/amd64/
+      mode: '0777'
+
+  - name: Exporting Java Environment Variables
+    copy:
+      src: ./files/java_rpms/java.sh
+      dest: /etc/profile.d/java.sh
+      mode: '0755'
+
+  - shell: ". /etc/profile.d/java.sh"
+
+  - name: Exporting Environment Variables
+    copy:
+      src: ./files/genkey_env_var.sh
+      dest: /etc/profile.d/genkey_env_var.sh
+      mode: '0755'
+#
+  - shell: "sh /etc/profile.d/genkey_env_var.sh"
+
+  - name: Transfering Firewall Rules
+    copy:
+      src: ./files/FirewalldTemplates/
+      dest: /root/ssl/
+      mode: '0755'
