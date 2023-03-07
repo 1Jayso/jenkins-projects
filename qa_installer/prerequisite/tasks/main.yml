@@ -55,9 +55,12 @@
   
 
   - name: Installing Java
-    get_url:
-      url: https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
-      dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
+    shell: |
+        cd /tmp/installer_files/java_rpms
+        wget  https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
+    # get_url:
+    #   url: https://download944.mediafire.com/ffbptpaqxlkgDqZbDYjzpmhRE4ze4LLnGcnVhNm6w8F22tLgXpegKDZ6nCwqRhdarxJBDdHLGTA75wiUlJl7zL0xOzsMHQ/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm
+    #   dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
 
     
 
