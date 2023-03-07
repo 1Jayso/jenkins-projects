@@ -58,11 +58,19 @@
       dest: "{{installer_data_dir}}/java_rpms/"
     # when: not java_version.stat.exists
 
+  # - name: Download Java 8 RPM
+  #   get_url:
+  #     url: "https://download944.mediafire.com/6ajgehyoz5rguFLqx2RClhVnlSftN9qcOx7-BDsN9rdFSEMcK6389R-b_uquIo2YMsCpeRJx0716ZcHXBhBFgPw1HwoDIw/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
+  #     dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
+    
   - name: Download Java 8 RPM
-    get_url:
+    shell: "wget {{ url }} -P {{ dest }}"
+    args:
+      executable: /bin/bash
+    vars:
       url: "https://download944.mediafire.com/6ajgehyoz5rguFLqx2RClhVnlSftN9qcOx7-BDsN9rdFSEMcK6389R-b_uquIo2YMsCpeRJx0716ZcHXBhBFgPw1HwoDIw/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
       dest: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
-    
+
 
   - yum:
       name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
