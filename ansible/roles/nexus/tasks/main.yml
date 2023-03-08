@@ -21,6 +21,8 @@
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
+    timeout: 300
+    force: true
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
@@ -41,7 +43,7 @@
     dest: /tmp/installer_files
   any_errors_fatal: true
 
-
+   
 - name: Merge GK base and extension and cleanup
   remote_user: root
   become: true
