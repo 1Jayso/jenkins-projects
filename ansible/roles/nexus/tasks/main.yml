@@ -28,6 +28,18 @@
   when: inventory_hostname in groups['test']
   register: download_results
 
+- name: Wait for the async task to complete
+  async_status:
+    jid: "{{ download_result.ansible_job_id }}"
+  register: job_status
+  until: job_status.finished
+  retries: 3600
+  delay: 1
+
+- name: Print the async task result
+  debug:
+    var: result.stdout_lines
+
 
 - name: Copy Gk base and extension to remote path
   become: true
