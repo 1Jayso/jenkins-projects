@@ -68,47 +68,47 @@
     args:
       executable: /bin/bash
     vars:
-      url: "https://download944.mediafire.com/6ajgehyoz5rguFLqx2RClhVnlSftN9qcOx7-BDsN9rdFSEMcK6389R-b_uquIo2YMsCpeRJx0716ZcHXBhBFgPw1HwoDIw/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
+      url: "https://download944.mediafire.com/99lq0v9hr0uggL7AxtKkh0QCgORjnWhOjf2kASlJSSPSzLGJjecxyeMheWg7JQ--4rIF5s71foldkvKDo_tIfM6UeoRYlAA/tvwwijfmj9x663v/jdk-8u101-linux-x64.rpm"
       dest: "{{installer_data_dir}}/java_rpms/"
 
 
-#   - yum:
-#       name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
-#       state: present
-#     when: not java_version.stat.exists 
+  - yum:
+      name: "{{installer_data_dir}}/java_rpms/jdk-8u101-linux-x64.rpm"
+      state: present
+    when: not java_version.stat.exists 
 
-#   - name: Installing Font Files
-#     yum:
-#       name: "{{installer_data_dir}}/java_rpms/msttcore-fonts-2.0-3.noarch.rpm"
-#       state: present
+  - name: Installing Font Files
+    yum:
+      name: "{{installer_data_dir}}/java_rpms/msttcore-fonts-2.0-3.noarch.rpm"
+      state: present
 
-#   - name: Transfering the Font Files
-#     shell: "cp /usr/share/fonts/msttcore/* /usr/java/latest/jre/lib/fonts/"
+  - name: Transfering the Font Files
+    shell: "cp /usr/share/fonts/msttcore/* /usr/java/latest/jre/lib/fonts/"
 
-#   - name: Installing Image Utils
-#     unarchive:
-#       src: ./files/java_rpms/imagetools.20170209.tgz
-#       dest: /usr/java/latest/lib/amd64/
-#       mode: '0777'
+  - name: Installing Image Utils
+    unarchive:
+      src: ./files/java_rpms/imagetools.20170209.tgz
+      dest: /usr/java/latest/lib/amd64/
+      mode: '0777'
 
-#   - name: Exporting Java Environment Variables
-#     copy:
-#       src: ./files/java_rpms/java.sh
-#       dest: /etc/profile.d/java.sh
-#       mode: '0755'
+  - name: Exporting Java Environment Variables
+    copy:
+      src: ./files/java_rpms/java.sh
+      dest: /etc/profile.d/java.sh
+      mode: '0755'
 
-#   - shell: ". /etc/profile.d/java.sh"
+  - shell: ". /etc/profile.d/java.sh"
 
-#   - name: Exporting Environment Variables
-#     copy:
-#       src: ./files/genkey_env_var.sh
-#       dest: /etc/profile.d/genkey_env_var.sh
-#       mode: '0755' 
-# #
-#   - shell: "sh /etc/profile.d/genkey_env_var.sh"
+  - name: Exporting Environment Variables
+    copy:
+      src: ./files/genkey_env_var.sh
+      dest: /etc/profile.d/genkey_env_var.sh
+      mode: '0755' 
+#
+  - shell: "sh /etc/profile.d/genkey_env_var.sh"
 
-#   - name: Transfering Firewall Rules
-#     copy:
-#       src: ./files/FirewalldTemplates/
-#       dest: /root/ssl/
-#       mode: '0755'
+  - name: Transfering Firewall Rules
+    copy:
+      src: ./files/FirewalldTemplates/
+      dest: /root/ssl/
+      mode: '0755'
