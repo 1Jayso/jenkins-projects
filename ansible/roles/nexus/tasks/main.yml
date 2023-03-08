@@ -32,7 +32,7 @@
 
 - name: Wait for the async task to complete
   async_status:
-    jid: "{{ download_result.ansible_job_id }}"
+    jid: "{{ download_results.ansible_job_id }}"
   register: job_status
   until: job_status.finished
   retries: 3600
