@@ -21,6 +21,10 @@
       shell: |
         cd /tmp
         mkdir -p installer_files &
+         async: 3600
+      async: 3600
+      poll: 5
+      any_errors_fatal: true
 
   roles:
    - nexus
