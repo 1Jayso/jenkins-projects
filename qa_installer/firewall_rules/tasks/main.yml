@@ -1,0 +1,64 @@
+- name: Firewall rule for Spire Web
+  ansible.posix.firewalld:
+    zone: public
+    port: 8082/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+  tags: firewall
+
+- name: Firewall rule for Spire Rest
+  ansible.posix.firewalld:
+    zone: public
+    port: 8085/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+  tags: firewall
+
+# - name: Firewall rule for Adjudication
+#   ansible.posix.firewalld:
+#     zone: public
+#     port: 8090/tcp
+#     permanent: yes
+#     immediate: yes
+#     state: enabled
+#   tags: firewall
+
+# - name: Firewall rule for Adudication Gateway
+#   ansible.posix.firewalld:
+#     zone: public
+#     port: /tcp
+#     permanent: yes
+#     immediate: yes
+#     state: enabled
+#   tags: firewall
+
+# - name: Firewall rule for Spire Self Service
+#   ansible.posix.firewalld:
+#     zone: public
+#     port: /tcp
+#     permanent: yes
+#     immediate: yes
+#     state: enabled
+#   tags: firewall
+
+# - name: Firewall rule for Demarcation
+#   ansible.posix.firewalld:
+#     zone: public
+#     port: /tcp
+#     permanent: yes
+#     immediate: yes
+#     state: enabled
+#   tags: firewall
+
+
+# # Port forwarding 
+# - name: Redirect port 443 to 8443 with Rich Rule
+#   ansible.posix.firewalld:
+#     rich_rule: rule family=ipv4 forward-port port=8080 protocol=tcp to-port=8084
+#     zone: public
+#     permanent: yes
+#     immediate: yes
+#     state: enabled
+#   tags: firewall

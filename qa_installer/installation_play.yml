@@ -41,6 +41,7 @@
       - iTomcat
       - iRestTomcat
       - iAdjudicationTomcat
+      - firewall_rules
       - updateConfiguration
     tags: standalone
 
