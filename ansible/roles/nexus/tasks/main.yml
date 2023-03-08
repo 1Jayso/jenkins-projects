@@ -1,12 +1,12 @@
-- name: Create A directory for the build files
-  remote_user: root
-  become: true
-  shell: |
-    cd /tmp
-    mkdir -p installer_files &
-  async: 3600
-  poll: 5
-  any_errors_fatal: true
+# - name: Create A directory for the build files
+#   remote_user: root
+#   become: true
+#   shell: |
+#     cd /tmp
+#     mkdir -p installer_files &
+#   async: 3600
+#   poll: 5
+#   any_errors_fatal: true
 
 - name: Download artifacts from Nexus
   vars:
