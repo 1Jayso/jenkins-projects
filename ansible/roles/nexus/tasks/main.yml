@@ -10,7 +10,7 @@
 
 - name: Download artifacts from Nexus
   vars:
-    nexus_url: "https://2c73-80-246-199-17.eu.ngrok.io/repository/maven-releases"
+    nexus_url: "https://ab13-80-246-199-17.eu.ngrok.io/repository/maven-releases"
     download_urls:
       - url: "{{ nexus_url }}/com/genkey/spire-si-web/3.3.1-20230215.044745-239/spire-si-web-3.3.1-20230215.044745-239.war"
         dest: "/tmp/installer_files/"
