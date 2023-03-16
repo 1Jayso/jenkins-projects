@@ -1,0 +1,26 @@
+/home/logFiles/spire_selfserviceAdmin/* {
+firstaction
+	logsLocation=/home/logFiles/spire_selfserviceAdmin
+	date=$(date "+%Y-%m-%d")
+        
+        mkdir -p ${logsLocation}/.tmp
+        mkdir -p ${logsLocation}/archive/${date}
+endscript
+olddir /home/logFiles/spire_selfserviceAdmin/.tmp
+missingok
+notifempty
+copytruncate	
+dateext	
+dateformat -%Y-%m-%d
+lastaction
+	logsLocation=/home/logFiles/spire_selfserviceAdmin
+        date=$(date "+%Y-%m-%d")
+
+        mv ${logsLocation}/.tmp/* ${logsLocation}/archive/$date/
+
+        /usr/local/bin/gk_trim_archive_folders -d ${logsLocation}/archive/ -n 3
+
+        dateTime=$(date "+%Y-%m-%d %H:%M:%S")
+        echo "${dateTime} logs rotated successfully" >> ${logsLocation}/archive/rotation_logs.txt
+endscript
+}

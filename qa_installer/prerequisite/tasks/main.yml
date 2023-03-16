@@ -104,4 +104,13 @@
     copy:
       src: ./files/FirewalldTemplates/
       dest: /root/ssl/
+
+  - name: Transferring Logrotate Files
+    copy:
+      src: ./files/logrotate_files/
+      dest: /etc/logrotate.d/
+      recurse: yes
+
+  - name: Creating Cron Jobs for log rotation
+    ansible.builtin.script: ./files/create_logrotate_cron_jobs.sh
       mode: '0755'
