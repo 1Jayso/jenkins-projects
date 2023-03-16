@@ -1,6 +1,6 @@
 ---
   - name: Transfering postgres rpm files
-    synchronize:
+    copy:
       src: ./files/postgres96_rpms
       dest: "{{installer_data_dir}}"
       #backup: yes

@@ -1,23 +1,28 @@
-- name: Create A directory for the build files
-  remote_user: root
-  become: true
-  shell: |
-    cd /tmp
-    mkdir -p installer_files &
-  any_errors_fatal: true
+# - name: Create A directory for the build files
+#   remote_user: root
+#   become: true
+#   shell: |
+#     cd /tmp
+#     mkdir -p installer_files &
+#   async: 3600
+#   poll: 5
+#   any_errors_fatal: true
 
 - name: Download artifacts from Nexus
   vars:
+    nexus_url: "https://ab13-80-246-199-17.eu.ngrok.io/repository/maven-releases"
     download_urls:
-    - url: "https://8253-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/spire-si-web/3.3.1-20230215.044745-239/spire-si-web-3.3.1-20230215.044745-239.war"
-      dest: "/tmp/installer_files/"
-    - url: "https://8253-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-rest-server/2.1.1-20230113.144722-41/si-rest-server-2.1.1-20230113.144722-41.war"
-      dest: "/tmp/installer_files/"
-    - url: "https://8253-80-246-199-17.eu.ngrok.io/repository/maven-releases/com/genkey/si-environment/2.1.1-20230203.140829-50/si-environment-2.1.1-20230203.140829-50.jar"
-      dest: "/tmp/installer_files/"
+      - url: "{{ nexus_url }}/com/genkey/spire-si-web/3.3.1-20230215.044745-239/spire-si-web-3.3.1-20230215.044745-239.war"
+        dest: "/tmp/installer_files/"
+      - url: "{{ nexus_url }}/com/genkey/si-rest-server/2.1.1-20230113.144722-41/si-rest-server-2.1.1-20230113.144722-41.war"
+        dest: "/tmp/installer_files/"
+      - url: "{{ nexus_url }}/com/genkey/si-environment/2.1.1-20230203.140829-50/si-environment-2.1.1-20230203.140829-50.jar"
+        dest: "/tmp/installer_files/"
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
+    timeout: 300
+    force: true
     validate_certs: no
     headers:
       "Authorization": "Basic YWRtaW46U3VkbzEyMzQ1Njc4"
@@ -27,6 +32,8 @@
   poll: 5
   when: inventory_hostname in groups['test']
   register: download_results
+  until: download_results is succeeded
+  ignore_errors: false
 
 
 - name: Copy Gk base and extension to remote path

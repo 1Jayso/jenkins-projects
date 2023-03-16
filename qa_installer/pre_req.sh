@@ -4,12 +4,11 @@ set -e
 export TENANT=$1
 export PROJECT_NAME=${TENANT,,}
 
-export HOME_DIR=`pwd`
 SPIRE_WEB_PATH=./qa_installer/iTomcat
 ADJUDICATION_UI_PATH=./qa_installer/iAdjudicationTomcat
 SPIRE_REST_PATH=./qa_installer/iRestTomcat
 ELASTICSEARCH_PATH=./qa_installer/elasticsearch
-DATABASE_PATH=$HOME_DIR/qa_installer/database_setup   
+DATABASE_PATH=./qa_installer/database_setup   
 GENKEY_INTERNAL_PATH=./qa_installer/iGenkeyInternal
 PREREQUISITE_PATH=./qa_installer/prerequisite
 GENKEY_INTERNAL_PATH_VAR=$GENKEY_INTERNAL_PATH/vars/main.yml
@@ -33,18 +32,15 @@ APACHE_VERSION_VALUE=$(basename $APACHE_VERSION)
 function _iDatabase_pre_setup(){
 echo "===> Setting up configuration files for database"
 
-# rm -rf ${DATABASE_PATH}/files/*
-mkdir -p ${DATABASE_PATH}/files/
-# touch ${DATABASE_PATH}/files/text.txt
-ls -l ${DATABASE_PATH}
-cp -r $HOME_DIR/qa_installer/config_files/db_files/* ${DATABASE_PATH}/files/
+rm -rf ${DATABASE_PATH}/files/*
+cp -r ./qa_installer/config_files/db_files/* ${DATABASE_PATH}/files
+ls -l ${DATABASE_PATH}/files
 }
 
 function _iGenkey_internal_pre_setup(){
 echo "==> Setting up Genkey_internal file"
 #if [ -f ${GENKEY_INTERNAL_PATH}/files/* ]; then
-ls -l
-pwd
+
 rm -rf ${GENKEY_INTERNAL_PATH}/files/*
 
 #fi

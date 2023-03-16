@@ -20,6 +20,9 @@
   - shell: "sh /root/clean_up.sh"
   - shell: "dos2unix *"
   - shell: "sh /root/UpdateConfigurationFiles.sh"
+    ignore_errors: true
+    
+
 # tasks file for updateConfiguration
   - systemd:
       name: elasticsearch.service
@@ -27,6 +30,10 @@
 
   - systemd:
       name: spire_web.service
+      state: started
+
+  - systemd:
+      name: spire_rest.service
       state: started
 
 

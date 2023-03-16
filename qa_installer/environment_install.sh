@@ -23,7 +23,7 @@ _Usage()
 _standlone_installation()
 {
  echo " Getting Files Ready for Installation"
- ansible-playbook ./qa_installer/installation_play.yml --tags "standalone" -i ./ansible/inventory.txt  --private-key private_keys -vvv 
+ ansible-playbook ./qa_installer/installation_play.yml --tags "standalone" -i ./ansible/inventory.txt  --private-key=$ANSIBLE_PRIVATE_KEY  -vvv 
   #ansible-playbook installation_play.yml --tags "standalone"
 }
 
@@ -120,6 +120,6 @@ esac
 
 }
 
-
+./qa_installer/pre_req.sh ${TENANT}
 _starting_up_project
 

@@ -3,27 +3,29 @@ pipeline {
     docker { image '1joe/docker-ansible:latest' }
   } 
   environment {
-   ANSIBLE_PRIVATE_KEY=credentials('ssh-key')
+  //  ANSIBLE_PRIVATE_KEY=credentials('ssh-key')
+   ANSIBLE_PRIVATE_KEY=credentials('jenkins-pv-41')
   //  SSH_KEY=credentials('ssh-key')
   }
   stages {
-    // stage('Download build files to Target Sever') {
-    //   steps {
-    //     // sh 'ansible-galaxy collection install -r requirements.yml'
-    //     // --private-key=$ANSIBLE_PRIVATE_KEY  
-    //     sh 'ansible-playbook -i ./ansible/inventory.txt  ./ansible/main.yml --private-key=$ANSIBLE_PRIVATE_KEY --extra-vars "target=test"'      
-    //   }
-    // }
+    stage('Download build files to Target Sever') {
+      steps {
+        // sh 'ansible-galaxy collection install -r requirements.yml'
+        // --private-key=$ANSIBLE_PRIVATE_KEY  
+        sh 'ansible-playbook -i ./ansible/inventory.txt  ./ansible/main.yml --private-key=$ANSIBLE_PRIVATE_KEY --extra-vars "target=test"'      
+      }
+    }
 
      stage('Prerequisite Install') {
       steps {
-        sh './qa_installer/pre_req.sh'
+        sh './qa_installer/pre_req.sh SI'
       }
     }
-    // stage('Install Genkey products on Target Sever') {
-    //   steps {
-    //     sh './qa_installer/environment_install.sh  SI standalone'
-    //   }
-    // }
+    
+    stage('Install Genkey products on Target Sever') {
+      steps {
+        sh 'ansible-playbook -i ./ansible/inventory.txt  ./qa_installer/installation_play.yml --private-key=$ANSIBLE_PRIVATE_KEY  --tags "standalone"'
+      }
+    }
   }
 }

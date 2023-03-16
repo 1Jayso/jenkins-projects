@@ -13,10 +13,17 @@
   # - ansible_stdout_callback: yaml
 
 
-  # pre_tasks:
-  #   - name: 'wait 2 seconds for target connection to become reachable/usable.'
-  #     wait_for_connection:
-  #       timeout: 2
+  pre_tasks:
+    # - name: 'wait 2 seconds for target connection to become reachable/usable.'
+    #   wait_for_connection:
+    #     timeout: 2
+    - name: Create A directory for the build files
+      shell: |
+        cd /tmp
+        mkdir -p installer_files &
+      async: 3600
+      poll: 5
+      ignore_errors: false
 
   roles:
    - nexus
